@@ -4,6 +4,7 @@
  */
 package Vistas;
 
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +12,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.UIManager;
 
 /**
  *
@@ -19,38 +22,6 @@ import javax.swing.Timer;
  */
 public class Principal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form NewJFrame
-     */
-    public Principal() {
-        initComponents();
-        
-        ImageIcon icFacturas = new ImageIcon(getClass().getResource("/Imagenes/Facturas.png"));
-        Icon iconoFac = new ImageIcon(icFacturas.getImage().getScaledInstance(100,70, Image.SCALE_DEFAULT));
-        btnFacturas.setIcon(iconoFac);
-        
-        ImageIcon icAlmacen = new ImageIcon(getClass().getResource("/Imagenes/Caja.png"));
-        Icon iconoAlm = new ImageIcon(icAlmacen.getImage().getScaledInstance(100,70, Image.SCALE_DEFAULT));
-        btnAlmacen.setIcon(iconoAlm);
-        
-        ImageIcon ImItemUsuarios = new ImageIcon(getClass().getResource("/Imagenes/Usuarios.png"));
-        Icon icUs = new ImageIcon(ImItemUsuarios.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
-        ItemUsuarios.setIcon(icUs);
-        
-        ImageIcon ImItemHerramientas = new ImageIcon(getClass().getResource("/Imagenes/Herramientas.png"));
-        Icon icHerramientas = new ImageIcon(ImItemHerramientas.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
-        ItemHerramientas.setIcon(icHerramientas);
-        
-        ImageIcon ImItemBD = new ImageIcon(getClass().getResource("/Imagenes/BD.png"));
-        Icon icBD = new ImageIcon(ImItemBD.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
-        ItemBD.setIcon(icBD);
-        
-        ImageIcon ImItemInfo = new ImageIcon(getClass().getResource("/Imagenes/Info.png"));
-        Icon icInfo = new ImageIcon(ImItemInfo.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
-        ItemInfo.setIcon(icInfo);
-        
-        timer.start();
-    }
     
     Timer timer = new Timer(1000, new ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -67,8 +38,45 @@ public class Principal extends javax.swing.JFrame {
                 lblHora.setText(hh+":"+mm+":"+ss);
                 lblFecha.setText(dia+"/"+(mes+1)+"/"+aa);
             }
-            });
+        });
 
+    
+    public Principal() throws Exception {
+        try {
+            UIManager.setLookAndFeel( new FlatMacLightLaf());
+            
+            initComponents();
+        
+            ImageIcon icFacturas = new ImageIcon(getClass().getResource("/Imagenes/Facturas.png"));
+            Icon iconoFac = new ImageIcon(icFacturas.getImage().getScaledInstance(100,70, Image.SCALE_DEFAULT));
+            btnFacturas.setIcon(iconoFac);
+
+            ImageIcon icAlmacen = new ImageIcon(getClass().getResource("/Imagenes/Caja.png"));
+            Icon iconoAlm = new ImageIcon(icAlmacen.getImage().getScaledInstance(100,70, Image.SCALE_DEFAULT));
+            btnAlmacen.setIcon(iconoAlm);
+
+            ImageIcon ImItemUsuarios = new ImageIcon(getClass().getResource("/Imagenes/Usuarios.png"));
+            Icon icUs = new ImageIcon(ImItemUsuarios.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
+            ItemUsuarios.setIcon(icUs);
+
+            ImageIcon ImItemHerramientas = new ImageIcon(getClass().getResource("/Imagenes/Herramientas.png"));
+            Icon icHerramientas = new ImageIcon(ImItemHerramientas.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
+            ItemHerramientas.setIcon(icHerramientas);
+
+            ImageIcon ImItemBD = new ImageIcon(getClass().getResource("/Imagenes/BD.png"));
+            Icon icBD = new ImageIcon(ImItemBD.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
+            ItemBD.setIcon(icBD);
+
+            ImageIcon ImItemInfo = new ImageIcon(getClass().getResource("/Imagenes/Info.png"));
+            Icon icInfo = new ImageIcon(ImItemInfo.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
+            ItemInfo.setIcon(icInfo);
+
+            timer.start();
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error en Principal: "+e.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,6 +86,7 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         btnFacturas = new javax.swing.JButton();
         btnAlmacen = new javax.swing.JButton();
@@ -225,44 +234,6 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFacturasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ItemBD;
     private javax.swing.JMenu ItemHerramientas;
@@ -276,6 +247,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel jlbusuario;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblHora;
