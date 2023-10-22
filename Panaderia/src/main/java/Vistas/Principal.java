@@ -4,6 +4,7 @@
  */
 package Vistas;
 
+import PanelModificados.panel_degrade1;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -23,58 +24,72 @@ import javax.swing.UIManager;
 public class Principal extends javax.swing.JFrame {
 
     
-    Timer timer = new Timer(1000, new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                Calendar cal = new GregorianCalendar();
-                int hh, mm, ss, dia, mes ,aa;
-                hh = cal.get(Calendar.HOUR_OF_DAY);
-                ss = cal.get(Calendar.SECOND);
-                mm = cal.get(Calendar.MINUTE);
-                
-                dia = cal.get(Calendar.DAY_OF_MONTH);
-                mes = cal.get(Calendar.MONTH);
-                aa = cal.get(Calendar.YEAR);
-
-                lblHora.setText(hh+":"+mm+":"+ss);
-                lblFecha.setText(dia+"/"+(mes+1)+"/"+aa);
-            }
-        });
-
+    panel_degrade1 p1 = new panel_degrade1();
+//    Timer timer = new Timer(1000, new ActionListener(){
+//            public void actionPerformed(ActionEvent e){
+//                Calendar cal = new GregorianCalendar();
+//                int hh, mm, ss, dia, mes ,aa;
+//                hh = cal.get(Calendar.HOUR_OF_DAY);
+//                ss = cal.get(Calendar.SECOND);
+//                mm = cal.get(Calendar.MINUTE);
+//                
+//                dia = cal.get(Calendar.DAY_OF_MONTH);
+//                mes = cal.get(Calendar.MONTH);
+//                aa = cal.get(Calendar.YEAR);
+//
+//                lblHora.setText(hh+":"+mm+":"+ss);
+//                lblFecha.setText(dia+"/"+(mes+1)+"/"+aa);
+//            }
+//        });
     
-    public Principal() throws Exception {
+    public Principal() {
         try {
+            //
             UIManager.setLookAndFeel( new FlatMacLightLaf());
-            
             initComponents();
-        
-            ImageIcon icFacturas = new ImageIcon(getClass().getResource("/Imagenes/Facturas.png"));
-            Icon iconoFac = new ImageIcon(icFacturas.getImage().getScaledInstance(100,70, Image.SCALE_DEFAULT));
-            btnFacturas.setIcon(iconoFac);
+            
+//            timer.start();
+            
+            //Panel1
+            //Panel1
+            p1.setSize(jPanel1.getSize());
+            jPanel1.add(p1);
+            
+            jTabbedPane2.setTabComponentAt(0, null);
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error en Principal: "+e.getMessage());
+        }
+    }
+    
+    private void Iconos() throws Exception{
+        try {
+//            ImageIcon icFacturas = new ImageIcon(getClass().getResource("/Imagenes/Facturas.png"));
+//            Icon iconoFac = new ImageIcon(icFacturas.getImage().getScaledInstance(100,70, Image.SCALE_DEFAULT));
+//            btnFacturas.setIcon(iconoFac);
 
-            ImageIcon icAlmacen = new ImageIcon(getClass().getResource("/Imagenes/Caja.png"));
-            Icon iconoAlm = new ImageIcon(icAlmacen.getImage().getScaledInstance(100,70, Image.SCALE_DEFAULT));
-            btnAlmacen.setIcon(iconoAlm);
+//            ImageIcon icAlmacen = new ImageIcon(getClass().getResource("/Imagenes/Caja.png"));
+//            Icon iconoAlm = new ImageIcon(icAlmacen.getImage().getScaledInstance(100,70, Image.SCALE_DEFAULT));
+//            btnAlmacen.setIcon(iconoAlm);
 
-            ImageIcon ImItemUsuarios = new ImageIcon(getClass().getResource("/Imagenes/Usuarios.png"));
-            Icon icUs = new ImageIcon(ImItemUsuarios.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
-            ItemUsuarios.setIcon(icUs);
+//            ImageIcon ImItemUsuarios = new ImageIcon(getClass().getResource("/Imagenes/Usuarios.png"));
+//            Icon icUs = new ImageIcon(ImItemUsuarios.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
+//            ItemUsuarios.setIcon(icUs);
 
             ImageIcon ImItemHerramientas = new ImageIcon(getClass().getResource("/Imagenes/Herramientas.png"));
             Icon icHerramientas = new ImageIcon(ImItemHerramientas.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
             ItemHerramientas.setIcon(icHerramientas);
 
-            ImageIcon ImItemBD = new ImageIcon(getClass().getResource("/Imagenes/BD.png"));
-            Icon icBD = new ImageIcon(ImItemBD.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
-            ItemBD.setIcon(icBD);
-
-            ImageIcon ImItemInfo = new ImageIcon(getClass().getResource("/Imagenes/Info.png"));
-            Icon icInfo = new ImageIcon(ImItemInfo.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
-            ItemInfo.setIcon(icInfo);
-
-            timer.start();
+//            ImageIcon ImItemBD = new ImageIcon(getClass().getResource("/Imagenes/BD.png"));
+//            Icon icBD = new ImageIcon(ImItemBD.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
+//            ItemBD.setIcon(icBD);
+//
+//            ImageIcon ImItemInfo = new ImageIcon(getClass().getResource("/Imagenes/Info.png"));
+//            Icon icInfo = new ImageIcon(ImItemInfo.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
+//            ItemInfo.setIcon(icInfo);
         } 
         catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error en Principal: "+e.getMessage());
+            throw new Exception("Ocurrio un error al cargar los iconos: "+e.getMessage());
         }
     }
     /**
@@ -87,119 +102,262 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        btnFacturas = new javax.swing.JButton();
-        btnAlmacen = new javax.swing.JButton();
+        tb_inventario = new javax.swing.JToggleButton();
+        tb_empleados = new javax.swing.JToggleButton();
+        tb_ventas = new javax.swing.JToggleButton();
+        tb_distribuidores = new javax.swing.JToggleButton();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jlbusuario = new javax.swing.JLabel();
-        lblFecha = new javax.swing.JLabel();
-        lblHora = new javax.swing.JLabel();
-        dpnEscritorio = new javax.swing.JDesktopPane();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         ItemHerramientas = new javax.swing.JMenu();
-        ItemUsuarios = new javax.swing.JMenu();
-        ItemInfo = new javax.swing.JMenu();
-        ItemBD = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(244, 244, 244));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
-
-        btnFacturas.setText("Facturas");
-        btnFacturas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFacturasActionPerformed(evt);
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jPanel1ComponentResized(evt);
             }
         });
 
-        btnAlmacen.setText("Almacen");
-        btnAlmacen.addActionListener(new java.awt.event.ActionListener() {
+        tb_inventario.setBackground(new java.awt.Color(217, 217, 217));
+        buttonGroup1.add(tb_inventario);
+        tb_inventario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tb_inventario.setForeground(new java.awt.Color(51, 51, 51));
+        tb_inventario.setText("Inventario");
+        tb_inventario.setBorderPainted(false);
+        tb_inventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlmacenActionPerformed(evt);
+                tb_inventarioActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Usuario:");
+        tb_empleados.setBackground(new java.awt.Color(217, 217, 217));
+        buttonGroup1.add(tb_empleados);
+        tb_empleados.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tb_empleados.setForeground(new java.awt.Color(51, 51, 51));
+        tb_empleados.setText("Empleados");
+        tb_empleados.setBorderPainted(false);
+        tb_empleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tb_empleadosActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("Fecha:");
+        tb_ventas.setBackground(new java.awt.Color(217, 217, 217));
+        buttonGroup1.add(tb_ventas);
+        tb_ventas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tb_ventas.setForeground(new java.awt.Color(51, 51, 51));
+        tb_ventas.setText("Ventas");
+        tb_ventas.setBorderPainted(false);
+        tb_ventas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tb_ventasActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("Hora:");
-
-        jlbusuario.setText("jLabel4");
-
-        lblFecha.setText("jLabel4");
-
-        lblHora.setText("jLabel4");
+        tb_distribuidores.setBackground(new java.awt.Color(217, 217, 217));
+        buttonGroup1.add(tb_distribuidores);
+        tb_distribuidores.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        tb_distribuidores.setForeground(new java.awt.Color(51, 51, 51));
+        tb_distribuidores.setText("Distribuidores");
+        tb_distribuidores.setBorderPainted(false);
+        tb_distribuidores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tb_distribuidoresActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnFacturas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAlmacen, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblHora)
-                            .addComponent(lblFecha)
-                            .addComponent(jlbusuario))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tb_distribuidores, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tb_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tb_inventario, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tb_empleados, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(btnFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(btnAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(91, 91, 91)
+                .addComponent(tb_inventario, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(tb_empleados, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(tb_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(tb_distribuidores, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.setBackground(new java.awt.Color(244, 244, 244));
+        jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+
+        jPanel2.setBackground(new java.awt.Color(244, 244, 244));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Distribuidor", "Stock", "Precio Unitario"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setText("Guardar");
+
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setText("Panes");
+
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setText("Malteadas");
+
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setText("Otros");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(145, 145, 145)
+                                .addComponent(jLabel2)
+                                .addGap(150, 150, 150)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 344, Short.MAX_VALUE)))))
+                .addGap(57, 57, 57))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jlbusuario))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(lblFecha))
+                    .addComponent(jLabel3))
+                .addGap(48, 48, 48)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(lblHora))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addComponent(jButton1)
+                .addGap(38, 38, 38))
         );
 
-        javax.swing.GroupLayout dpnEscritorioLayout = new javax.swing.GroupLayout(dpnEscritorio);
-        dpnEscritorio.setLayout(dpnEscritorioLayout);
-        dpnEscritorioLayout.setHorizontalGroup(
-            dpnEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 631, Short.MAX_VALUE)
+        jTabbedPane2.addTab("", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(244, 244, 244));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Apellidos", "Cedula", "Salario", "Numero", "Correo", "Fecha nacimiento", "Fecha Afiliacion", "Cargo"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 841, Short.MAX_VALUE)
+                .addGap(47, 47, 47))
         );
-        dpnEscritorioLayout.setVerticalGroup(
-            dpnEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+                .addGap(58, 58, 58))
         );
 
-        ItemHerramientas.setText("Herramientas");
+        jTabbedPane2.addTab("", jPanel3);
 
-        ItemUsuarios.setText("Usuarios");
-        ItemHerramientas.add(ItemUsuarios);
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 940, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 666, Short.MAX_VALUE)
+        );
 
-        ItemInfo.setText("Información");
-        ItemHerramientas.add(ItemInfo);
+        jTabbedPane2.addTab("", jPanel4);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 940, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 666, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("", jPanel5);
+
+        ItemHerramientas.setText("Preferencias");
+
+        jMenuItem1.setText("Ayuda ");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        ItemHerramientas.add(jMenuItem1);
+
+        jMenuItem2.setText("Usuario");
+        ItemHerramientas.add(jMenuItem2);
+
+        jMenuItem3.setText("Salir");
+        ItemHerramientas.add(jMenuItem3);
 
         jMenuBar1.add(ItemHerramientas);
-
-        ItemBD.setText("Base de datos");
-        jMenuBar1.add(ItemBD);
 
         setJMenuBar(jMenuBar1);
 
@@ -208,48 +366,75 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dpnEscritorio)
-                .addContainerGap())
+                .addComponent(jTabbedPane2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(dpnEscritorio)
-                .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAlmacenActionPerformed
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void btnFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturasActionPerformed
+    private void tb_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_ventasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnFacturasActionPerformed
+    }//GEN-LAST:event_tb_ventasActionPerformed
+
+    private void tb_distribuidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_distribuidoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tb_distribuidoresActionPerformed
+
+    private void jPanel1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentResized
+        // TODO add your handling code here:
+        jPanel1.remove(p1);
+        p1.setSize(jPanel1.getSize());
+        jPanel1.add(p1);
+        jPanel1.repaint();
+    }//GEN-LAST:event_jPanel1ComponentResized
+
+    private void tb_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_inventarioActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane2.setSelectedIndex(0);
+    }//GEN-LAST:event_tb_inventarioActionPerformed
+
+    private void tb_empleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_empleadosActionPerformed
+        // TODO add your handling code here:
+        jTabbedPane2.setSelectedIndex(1);
+    }//GEN-LAST:event_tb_empleadosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu ItemBD;
     private javax.swing.JMenu ItemHerramientas;
-    private javax.swing.JMenu ItemInfo;
-    private javax.swing.JMenu ItemUsuarios;
-    private javax.swing.JButton btnAlmacen;
-    private javax.swing.JButton btnFacturas;
-    private javax.swing.JDesktopPane dpnEscritorio;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel jlbusuario;
-    private javax.swing.JLabel lblFecha;
-    private javax.swing.JLabel lblHora;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JToggleButton tb_distribuidores;
+    private javax.swing.JToggleButton tb_empleados;
+    private javax.swing.JToggleButton tb_inventario;
+    private javax.swing.JToggleButton tb_ventas;
     // End of variables declaration//GEN-END:variables
 }

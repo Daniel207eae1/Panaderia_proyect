@@ -8,8 +8,6 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.util.Random;
 
 /**
  * @web http://jc-mouse.blogspot.com/
