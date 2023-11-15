@@ -4,7 +4,7 @@
  */
 package Vistas;
 
-import PanelModificados.panel_degrade1;
+import Modificados.panel_degrade1;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Image;

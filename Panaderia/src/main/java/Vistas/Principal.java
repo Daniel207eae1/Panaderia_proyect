@@ -4,7 +4,8 @@
  */
 package Vistas;
 
-import PanelModificados.panel_degrade1;
+import Modificados.Colores;
+import Modificados.panel_degrade1;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -113,9 +115,9 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jl_panes = new javax.swing.JLabel();
+        jl_malteadas = new javax.swing.JLabel();
+        jl_otros = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -232,14 +234,59 @@ public class Principal extends javax.swing.JFrame {
 
         jButton1.setText("Guardar");
 
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setText("Panes");
+        jl_panes.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jl_panes.setForeground(new java.awt.Color(51, 51, 51));
+        jl_panes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jl_panes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sublinea.png"))); // NOI18N
+        jl_panes.setText("Panes");
+        jl_panes.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jl_panes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jl_panes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jl_panes.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jl_panes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jl_panesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jl_panesMouseExited(evt);
+            }
+        });
 
-        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setText("Malteadas");
+        jl_malteadas.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jl_malteadas.setForeground(new java.awt.Color(51, 51, 51));
+        jl_malteadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jl_malteadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sublinea.png"))); // NOI18N
+        jl_malteadas.setText("Malteadas");
+        jl_malteadas.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jl_malteadas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jl_malteadas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jl_malteadas.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jl_malteadas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jl_malteadasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jl_malteadasMouseExited(evt);
+            }
+        });
 
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Otros");
+        jl_otros.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jl_otros.setForeground(new java.awt.Color(51, 51, 51));
+        jl_otros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jl_otros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sublinea.png"))); // NOI18N
+        jl_otros.setText("Otros");
+        jl_otros.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jl_otros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jl_otros.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jl_otros.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jl_otros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jl_otrosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jl_otrosMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -253,27 +300,27 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(145, 145, 145)
-                                .addComponent(jLabel2)
-                                .addGap(150, 150, 150)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 344, Short.MAX_VALUE)))))
+                                .addGap(8, 8, 8)
+                                .addComponent(jl_panes, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addComponent(jl_malteadas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addComponent(jl_otros, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(57, 57, 57))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(48, 48, 48)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jl_panes)
+                    .addComponent(jl_malteadas)
+                    .addComponent(jl_otros))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(38, 38, 38))
@@ -410,13 +457,53 @@ public class Principal extends javax.swing.JFrame {
         jTabbedPane2.setSelectedIndex(1);
     }//GEN-LAST:event_tb_empleadosActionPerformed
 
+    private void jl_otrosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_otrosMouseEntered
+        // TODO add your handling code here:
+        mouse_entered_options(jl_otros);
+    }//GEN-LAST:event_jl_otrosMouseEntered
+    private void jl_panesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_panesMouseEntered
+        // TODO add your handling code here:
+        mouse_entered_options(jl_panes);
+    }//GEN-LAST:event_jl_panesMouseEntered
+
+    private void jl_malteadasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_malteadasMouseEntered
+        // TODO add your handling code here:
+        mouse_entered_options(jl_malteadas);
+    }//GEN-LAST:event_jl_malteadasMouseEntered
+
+    private void jl_panesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_panesMouseExited
+        // TODO add your handling code here:
+        mouse_exit_options(jl_panes);
+    }//GEN-LAST:event_jl_panesMouseExited
+
+    private void jl_malteadasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_malteadasMouseExited
+        // TODO add your handling code here:
+        mouse_exit_options(jl_malteadas);
+    }//GEN-LAST:event_jl_malteadasMouseExited
+
+    private void jl_otrosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_otrosMouseExited
+        // TODO add your handling code here:
+        mouse_exit_options(jl_otros);
+    }//GEN-LAST:event_jl_otrosMouseExited
+
+    private void mouse_entered_options(JLabel jl){
+        ImageIcon ImItemHerramientas = new ImageIcon(getClass().getResource("/Imagenes/sublinea_entered.png"));
+        Icon icHerramientas = new ImageIcon(ImItemHerramientas.getImage().getScaledInstance(107,4, Image.SCALE_DEFAULT));
+        jl.setIcon(icHerramientas);
+        jl.setForeground(Colores.color1);
+    }
+    
+    private void mouse_exit_options(JLabel jl){
+        ImageIcon ImItemHerramientas = new ImageIcon(getClass().getResource("/Imagenes/sublinea.png"));
+        Icon icHerramientas = new ImageIcon(ImItemHerramientas.getImage().getScaledInstance(107,4, Image.SCALE_DEFAULT));
+        jl.setIcon(icHerramientas);
+        jl.setForeground(Colores.color_foreground_options);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ItemHerramientas;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -432,6 +519,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JLabel jl_malteadas;
+    private javax.swing.JLabel jl_otros;
+    private javax.swing.JLabel jl_panes;
     private javax.swing.JToggleButton tb_distribuidores;
     private javax.swing.JToggleButton tb_empleados;
     private javax.swing.JToggleButton tb_inventario;
