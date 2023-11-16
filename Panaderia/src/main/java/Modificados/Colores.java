@@ -15,4 +15,5 @@ public class Colores {
     public static Color color2 = Color.decode("#CB8824");
     
     public static Color color_foreground_options = Color.decode("#333333");
+    public static Color color_foreground_gray = Color.decode("#666666");
 }
