@@ -4,10 +4,14 @@
  */
 package Contextos;
 
-/**
- *
- * @author elbot
- */
-public class Firestore {
+
+public class Sesion {
     
+    public static String Usuario;
+    
+    public static String Nombre;
+    
+    public static String cedula;
+    
+    public static String sucursal = "UJHQCBwK1FBUXxDWFq2T";
 }

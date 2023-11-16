@@ -5,6 +5,7 @@
 package com.pancachogroup.panaderia;
 
 //import Vistas.Inicio;
+import Contextos.Conexion_Firestore;
 import Vistas.Inicio_Sesion;
 
 
@@ -15,8 +16,7 @@ public class Panaderia {
             Inicio_Sesion inicio = new Inicio_Sesion();
             inicio.setVisible(true);
             
-//            Principal principal = new Principal();
-//            principal.setVisible(true);
+            Conexion_Firestore.conectarFirebase();
         } 
         catch (Exception e) {
             System.out.println("Ocurrio un error en el main: "+e.getMessage());

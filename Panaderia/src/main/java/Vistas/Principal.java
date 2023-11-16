@@ -4,22 +4,30 @@
  */
 package Vistas;
 
+import Contextos.Conexion_Firestore;
+import Contextos.Sesion;
+import Modelos.Distribuidor;
+import Modelos.Empleado;
+import Modelos.Producto;
 import Modificados.Colores;
 import Modificados.panel_degrade1;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 import javax.swing.UIManager;
-import javax.swing.plaf.BorderUIResource;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,47 +40,106 @@ public class Principal extends javax.swing.JFrame {
     boolean pan_click = false;
     boolean malteadas_click = false;
     boolean otros_click = false;
+    boolean empleados_cargados = false;
+    boolean productos_cargados = false;
+    boolean distribuidores_cargados = false;
+    
+    List<Producto> productos = new ArrayList<>();
+    List<Empleado> empleados = new ArrayList<>();
+    List<Distribuidor> distribuidores = new ArrayList<>();
+    
+    
+    DefaultTableModel tm_productos;
+    DefaultTableModel tm_empleados;
+    DefaultTableModel tm_ventas;
+    DefaultTableModel tm_distribuidores;
     
     public Principal() {
         try {
-            //
             UIManager.setLookAndFeel( new FlatMacLightLaf());
             initComponents();
             p1.setSize(jPanel1.getSize());
             jPanel1.add(p1);
-            
             jTabbedPane2.setTabComponentAt(0, null);
+            cargar_default_model();
+            Cargar_inventario();
+            Cargar_Sub_Inventario("Pan");
+            jl_panesMouseClicked(null);
+            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         } 
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error en Principal: "+e.getMessage());
         }
     }
     
+    private void cargar_default_model(){
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        String[] c1 = {"Nombre","Stock","Precio Unitario","Distribuidor"};
+        tm_productos = new DefaultTableModel(c1, 0);
+        tabla_inventario.setModel(tm_productos);
+        tabla_inventario.setDefaultRenderer(Object.class, centerRenderer);
+        
+        String[] c2 = {"Cedula","Nombre","Apellidos","Salario","Celular",
+        "Correo","Fecha nacimiento","Fecha afiliacion","Cargo"};
+        tm_empleados = new DefaultTableModel(c2, 0);
+        tabla_empleados.setModel(tm_empleados);
+        tabla_empleados.setDefaultRenderer(Object.class, centerRenderer);
+        
+        String[] c3 = {"Fecha","Vendedor","Total"};
+        tm_ventas = new DefaultTableModel(c3, 0);
+        tabla_ventas.setModel(tm_ventas);
+        tabla_ventas.setDefaultRenderer(Object.class, centerRenderer);
+        
+        String[] c4 = {"Nombre","Numero","Direccion"};
+        tm_distribuidores = new DefaultTableModel(c4, 0);
+        tabla_distribuidores.setModel(tm_distribuidores);
+        tabla_distribuidores.setDefaultRenderer(Object.class, centerRenderer);
+    }
+    
+    private void Cargar_inventario(){
+        try {
+            productos = Conexion_Firestore.ver_inventario(Sesion.sucursal);
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al cargar el inventario: \n"+e.getMessage());
+        }
+    }
+    
+    private void Cargar_Sub_Inventario(String tipo){
+        try {
+            tm_productos.setRowCount(0);
+            for(Producto p : productos){
+                if(p.tipo.equals(tipo)){
+                    tm_productos.addRow(new Object[]{p.nombre,p.stock,p.precio_u,p.distribuidor});
+                }
+            }
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al cargar el sub-inventario: \n"+e.getMessage());
+        }
+    }
+    
+    private void Cargar_empleados(){
+        try {
+            empleados = Conexion_Firestore.ver_empleados(Sesion.sucursal);
+            tm_empleados.setRowCount(0);
+            for(Empleado e : empleados){
+                tm_empleados.addRow(new Object[]{e.cedula,e.nombre,e.apellido,e.salario,e.celular,e.correo,e.fecha_nacimiento,e.fecha_afiliacion,e.cargo});
+            }
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al cargar los empleados: \n"+e.getMessage());
+        }
+    }
+    
+    
     private void Iconos() throws Exception{
         try {
-//            ImageIcon icFacturas = new ImageIcon(getClass().getResource("/Imagenes/Facturas.png"));
-//            Icon iconoFac = new ImageIcon(icFacturas.getImage().getScaledInstance(100,70, Image.SCALE_DEFAULT));
-//            btnFacturas.setIcon(iconoFac);
-
-//            ImageIcon icAlmacen = new ImageIcon(getClass().getResource("/Imagenes/Caja.png"));
-//            Icon iconoAlm = new ImageIcon(icAlmacen.getImage().getScaledInstance(100,70, Image.SCALE_DEFAULT));
-//            btnAlmacen.setIcon(iconoAlm);
-
-//            ImageIcon ImItemUsuarios = new ImageIcon(getClass().getResource("/Imagenes/Usuarios.png"));
-//            Icon icUs = new ImageIcon(ImItemUsuarios.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
-//            ItemUsuarios.setIcon(icUs);
-
             ImageIcon ImItemHerramientas = new ImageIcon(getClass().getResource("/Imagenes/Herramientas.png"));
             Icon icHerramientas = new ImageIcon(ImItemHerramientas.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
             ItemHerramientas.setIcon(icHerramientas);
-
-//            ImageIcon ImItemBD = new ImageIcon(getClass().getResource("/Imagenes/BD.png"));
-//            Icon icBD = new ImageIcon(ImItemBD.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
-//            ItemBD.setIcon(icBD);
-//
-//            ImageIcon ImItemInfo = new ImageIcon(getClass().getResource("/Imagenes/Info.png"));
-//            Icon icInfo = new ImageIcon(ImItemInfo.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
-//            ItemInfo.setIcon(icInfo);
         } 
         catch (Exception e) {
             throw new Exception("Ocurrio un error al cargar los iconos: "+e.getMessage());
@@ -97,20 +164,20 @@ public class Principal extends javax.swing.JFrame {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla_inventario = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jl_panes = new javax.swing.JLabel();
         jl_malteadas = new javax.swing.JLabel();
         jl_otros = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabla_empleados = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tabla_ventas = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tabla_distribuidores = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         ItemHerramientas = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -131,6 +198,7 @@ public class Principal extends javax.swing.JFrame {
         buttonGroup1.add(tb_inventario);
         tb_inventario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tb_inventario.setForeground(new java.awt.Color(198, 87, 45));
+        tb_inventario.setSelected(true);
         tb_inventario.setText("Inventario");
         tb_inventario.setBorderPainted(false);
         tb_inventario.addActionListener(new java.awt.event.ActionListener() {
@@ -207,17 +275,29 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(244, 244, 244));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_inventario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tabla_inventario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
                 "Nombre", "Stock", "Precio Unitario", "Distribuidor"
             }
-        ));
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
+            };
 
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tabla_inventario.setShowGrid(true);
+        jScrollPane1.setViewportView(tabla_inventario);
+
+        jButton1.setBackground(new java.awt.Color(203, 136, 36));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(244, 244, 244));
         jButton1.setText("Guardar");
 
         jl_panes.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
@@ -291,8 +371,8 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE)
@@ -317,24 +397,25 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(38, 38, 38))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         jTabbedPane2.addTab("", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(244, 244, 244));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_empleados.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tabla_empleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Apellidos", "Cedula", "Salario", "Celular", "Correo", "Fecha nacimiento", "Fecha Afiliacion", "Cargo"
+                "Cedula", "Nombre", "Apellidos", "Salario", "Celular", "Correo", "Fecha nacimiento", "Fecha Afiliacion", "Cargo"
             }
         ));
-        jTable2.setShowGrid(true);
-        jScrollPane2.setViewportView(jTable2);
+        tabla_empleados.setShowGrid(true);
+        jScrollPane2.setViewportView(tabla_empleados);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -357,7 +438,7 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(244, 244, 244));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_ventas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -365,8 +446,8 @@ public class Principal extends javax.swing.JFrame {
                 "Fecha", "Vendedor", "Total"
             }
         ));
-        jTable3.setShowGrid(true);
-        jScrollPane3.setViewportView(jTable3);
+        tabla_ventas.setShowGrid(true);
+        jScrollPane3.setViewportView(tabla_ventas);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -389,7 +470,7 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(244, 244, 244));
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_distribuidores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -397,8 +478,8 @@ public class Principal extends javax.swing.JFrame {
                 "Nombre", "Numero", "Direccion"
             }
         ));
-        jTable4.setShowGrid(true);
-        jScrollPane4.setViewportView(jTable4);
+        tabla_distribuidores.setShowGrid(true);
+        jScrollPane4.setViewportView(tabla_distribuidores);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -464,10 +545,14 @@ public class Principal extends javax.swing.JFrame {
 
     private void tb_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_ventasActionPerformed
         jTabbedPane2.setSelectedIndex(2);
+        //Cargar_ventas
     }//GEN-LAST:event_tb_ventasActionPerformed
 
     private void tb_distribuidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_distribuidoresActionPerformed
         jTabbedPane2.setSelectedIndex(3);
+        if(!distribuidores_cargados){
+            //Cargar_distribuidores();
+        }
     }//GEN-LAST:event_tb_distribuidoresActionPerformed
 
     private void jPanel1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentResized
@@ -481,11 +566,19 @@ public class Principal extends javax.swing.JFrame {
     private void tb_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_inventarioActionPerformed
         // TODO add your handling code here:
         jTabbedPane2.setSelectedIndex(0);
+        if(!productos_cargados){
+            jl_panesMouseClicked(null);
+            Cargar_inventario();
+            Cargar_Sub_Inventario("Pan");
+        }
     }//GEN-LAST:event_tb_inventarioActionPerformed
 
     private void tb_empleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_empleadosActionPerformed
         // TODO add your handling code here:
         jTabbedPane2.setSelectedIndex(1);
+        if(!empleados_cargados){
+            Cargar_empleados();
+        }
     }//GEN-LAST:event_tb_empleadosActionPerformed
 
     private void jl_otrosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_otrosMouseEntered
@@ -528,6 +621,8 @@ public class Principal extends javax.swing.JFrame {
         mouse_entered_options(jl_panes);
         mouse_exit_options(jl_otros);
         mouse_exit_options(jl_malteadas);
+        
+        Cargar_Sub_Inventario("Pan");
     }//GEN-LAST:event_jl_panesMouseClicked
 
     private void jl_malteadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_malteadasMouseClicked
@@ -538,6 +633,8 @@ public class Principal extends javax.swing.JFrame {
         mouse_entered_options(jl_malteadas);
         mouse_exit_options(jl_otros);
         mouse_exit_options(jl_panes);
+        
+        Cargar_Sub_Inventario("Malteadas");
     }//GEN-LAST:event_jl_malteadasMouseClicked
 
     private void jl_otrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_otrosMouseClicked
@@ -548,6 +645,8 @@ public class Principal extends javax.swing.JFrame {
         mouse_entered_options(jl_otros);
         mouse_exit_options(jl_panes);
         mouse_exit_options(jl_malteadas);
+        
+        Cargar_Sub_Inventario("Otros");
     }//GEN-LAST:event_jl_otrosMouseClicked
 
     private void mouse_entered_options(JLabel jl){
@@ -583,13 +682,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JLabel jl_malteadas;
     private javax.swing.JLabel jl_otros;
     private javax.swing.JLabel jl_panes;
+    private javax.swing.JTable tabla_distribuidores;
+    private javax.swing.JTable tabla_empleados;
+    private javax.swing.JTable tabla_inventario;
+    private javax.swing.JTable tabla_ventas;
     private javax.swing.JToggleButton tb_distribuidores;
     private javax.swing.JToggleButton tb_empleados;
     private javax.swing.JToggleButton tb_inventario;
