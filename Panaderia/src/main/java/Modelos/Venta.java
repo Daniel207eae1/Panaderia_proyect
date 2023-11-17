@@ -4,6 +4,7 @@
  */
 package Modelos;
 
+import com.google.api.client.util.ArrayMap;
 import java.util.Date;
 import java.util.Map;
 
@@ -12,18 +13,18 @@ import java.util.Map;
  * @author elbot
  */
 public class Venta {
-    public Date fecha;
+    public String fecha;
     
     public String vendedor;
     
     public String cliente;
     
     // 0: Cantidad    1: Precio_Total
-    public Map<String, int[]> productos;
+    public Map<String, int[]> productos = new ArrayMap<>();
     
     public int total;
     
-    public Venta(Date fecha, String vendedor, String cliente, int total){
+    public Venta(String fecha, String vendedor, String cliente, int total){
         this.fecha = fecha;
         this.vendedor = vendedor;
         this.cliente = cliente;

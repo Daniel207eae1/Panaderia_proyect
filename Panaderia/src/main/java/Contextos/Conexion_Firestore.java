@@ -4,15 +4,20 @@
  */
 package Contextos;
 
+import Modelos.Distribuidor;
 import Modelos.Empleado;
 import Modelos.Producto;
+import Modelos.Venta;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentChange;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.EventListener;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.FirestoreException;
 import com.google.cloud.firestore.Query;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
@@ -24,6 +29,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,6 +40,7 @@ import java.util.Map;
 public class Conexion_Firestore {
     
     private static Firestore db;
+    private static List<Venta> ventas = new ArrayList<>();
     private static final String credentials = "{\n" +
     "  \"type\": \"service_account\",\n" +
     "  \"project_id\": \"panaderia-4766e\",\n" +
@@ -140,5 +149,104 @@ public class Conexion_Firestore {
             throw new Exception("Ver_empleados: \n"+e.getMessage());
         }
         return empleados;
+    }
+    
+    public static List<Distribuidor> ver_distribuidores(String sucursal) throws Exception{
+        List<Distribuidor> distribuidores = new ArrayList<>();
+        try {
+            ApiFuture<QuerySnapshot> future = db.collection("Sucursales").document(sucursal).collection("Distribuidores").get();
+            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+            
+            for (QueryDocumentSnapshot document : documents) {
+                Map<String, Object> mp = document.getData();
+                Distribuidor p = new Distribuidor((String)mp.get("nombre"), (String)mp.get("numero"), (String)mp.get("direccion"));
+                distribuidores.add(p);
+            }
+        } 
+        catch (Exception e) {
+            throw new Exception("Ver_empleados: \n"+e.getMessage());
+        }
+        return distribuidores;
+    }
+    
+    public static void ver_ventas(String sucursal, DefaultTableModel tm_ventas) throws Exception{
+        try {
+            
+            ////////
+            ApiFuture<QuerySnapshot> future = db.collection("Sucursales").document(sucursal).collection("Ventas").get();
+            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+            
+            for (QueryDocumentSnapshot document : documents) {
+                Map<String, Object> mp = document.getData();
+                Agregar_venta(mp,tm_ventas);
+            }
+            ////////
+            CollectionReference collection = db.collection("Sucursales").document(sucursal).collection("Ventas");
+            collection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot queryDocumentSnapshots, FirestoreException e) {
+                if (e != null) {
+                    System.err.println("Error al escuchar cambios en la colección: " + e.getMessage());
+                    return;
+                }
+                for (DocumentChange change : queryDocumentSnapshots.getDocumentChanges()) {
+                    switch (change.getType()) {
+                        case ADDED:
+                            Map<String, Object> mp = change.getDocument().getData();
+                        {
+                            try {
+                                Agregar_venta(mp,tm_ventas);
+                            } catch (Exception ex) {
+                                Logger.getLogger(Conexion_Firestore.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                            break;
+                    }
+                }
+            }
+        });
+            
+        } 
+        catch (Exception e) {
+            throw new Exception("Ver_empleados: \n"+e.getMessage());
+        }
+    }
+    
+    private static void Agregar_venta(Map<String, Object> mp, DefaultTableModel tm_ventas) throws Exception{
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            String fecha = dateFormat.format(((Timestamp)mp.get("fecha")).toDate());
+            Venta p = new Venta(fecha, (String)mp.get("vendedor_cc"), (String)mp.get("cliente"), ((Number)mp.get("total")).intValue());
+            int cn = ((Number)mp.get("cantidad_productos")).intValue();
+
+            for (int i = 1; i <= cn; i++) {
+                p.productos.put((String)mp.get("p"+String.valueOf(i)), 
+                        new int[]{
+                            ((Number)mp.get("cn"+String.valueOf(i))).intValue(),
+                            ((Number)mp.get("v"+String.valueOf(i))).intValue()});
+            }
+
+            tm_ventas.addRow(new Object[]{p.fecha,p.vendedor,p.cliente,p.total});
+            ventas.add(p);
+        } 
+        catch (Exception e) {
+            throw new Exception("Agregar_venta: \n"+e.getMessage());
+        }
+    }
+    
+    public static int Cargar_venta_detallada(int i, DefaultTableModel tm_venta) throws Exception{
+        int total=0;
+        try {
+            Venta p = ventas.get(i);
+            for (String clave : p.productos.keySet()) {
+                int[] valor = p.productos.get(clave);
+                tm_venta.addRow(new Object[]{clave,String.valueOf(valor[0]),String.valueOf(valor[1])});
+            }
+            total = p.total;
+        } 
+        catch (Exception e) {
+            throw new Exception("Cargar_venta_detallada: \n"+e.getMessage());
+        }
+        return total;
     }
 }

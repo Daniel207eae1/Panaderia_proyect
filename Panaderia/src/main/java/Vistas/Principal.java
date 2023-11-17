@@ -9,12 +9,15 @@ import Contextos.Sesion;
 import Modelos.Distribuidor;
 import Modelos.Empleado;
 import Modelos.Producto;
+import Modelos.Venta;
 import Modificados.Colores;
 import Modificados.panel_degrade1;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -43,6 +46,7 @@ public class Principal extends javax.swing.JFrame {
     boolean empleados_cargados = false;
     boolean productos_cargados = false;
     boolean distribuidores_cargados = false;
+    boolean ventas_cargadas = false;
     
     List<Producto> productos = new ArrayList<>();
     List<Empleado> empleados = new ArrayList<>();
@@ -65,10 +69,34 @@ public class Principal extends javax.swing.JFrame {
             Cargar_inventario();
             Cargar_Sub_Inventario("Pan");
             jl_panesMouseClicked(null);
+            
+            //Tabla
+            tabla_ventas.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() == 2) { // Doble clic
+                        int filaSeleccionada = tabla_ventas.getSelectedRow();
+                        // Llamar al método cuando se produce un doble clic
+                        ver_venta_detallada(filaSeleccionada);
+                    }
+                }
+            });
+            
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         } 
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error en Principal: "+e.getMessage());
+        }
+    }
+    
+    private void ver_venta_detallada(int i){
+        try {
+            Venta_detallada vd = new Venta_detallada(i);
+            vd.setLocationRelativeTo(this);
+            vd.setVisible(true);
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al detallar la venta: \n"+e.getMessage());
         }
     }
     
@@ -87,8 +115,14 @@ public class Principal extends javax.swing.JFrame {
         tabla_empleados.setModel(tm_empleados);
         tabla_empleados.setDefaultRenderer(Object.class, centerRenderer);
         
-        String[] c3 = {"Fecha","Vendedor","Total"};
-        tm_ventas = new DefaultTableModel(c3, 0);
+        String[] c3 = {"Fecha","Vendedor CC","Cliente","Total"};
+        tm_ventas = new DefaultTableModel(c3, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Devolver false para hacer que todas las celdas sean no editables
+                return false;
+            }
+        };
         tabla_ventas.setModel(tm_ventas);
         tabla_ventas.setDefaultRenderer(Object.class, centerRenderer);
         
@@ -134,6 +168,32 @@ public class Principal extends javax.swing.JFrame {
         }
     }
     
+    private void Cargar_ventas(){
+        try {
+            //List<Venta> ventas = new ArrayList<>();
+            Conexion_Firestore.ver_ventas(Sesion.sucursal, tm_ventas);
+//            tm_ventas.setRowCount(0);
+//            for(Venta v : ventas){
+//                tm_ventas.addRow(new Object[]{v.fecha,v.vendedor,v.cliente,v.total});
+//            }
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al cargar los empleados: \n"+e.getMessage());
+        }
+    }
+    
+    private void Cargar_distribuidores(){
+        try {
+            distribuidores = Conexion_Firestore.ver_distribuidores(Sesion.sucursal);
+            tm_distribuidores.setRowCount(0);
+            for(Distribuidor d : distribuidores){
+                tm_distribuidores.addRow(new Object[]{d.nombre,d.numero,d.direccion});
+            }
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al cargar los empleados: \n"+e.getMessage());
+        }
+    }
     
     private void Iconos() throws Exception{
         try {
@@ -438,12 +498,13 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(244, 244, 244));
 
+        tabla_ventas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tabla_ventas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Fecha", "Vendedor", "Total"
+                "Fecha", "Vendedor", "Cliente", "Total"
             }
         ));
         tabla_ventas.setShowGrid(true);
@@ -470,6 +531,7 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(244, 244, 244));
 
+        tabla_distribuidores.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tabla_distribuidores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -545,13 +607,17 @@ public class Principal extends javax.swing.JFrame {
 
     private void tb_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_ventasActionPerformed
         jTabbedPane2.setSelectedIndex(2);
-        //Cargar_ventas
+        if(!ventas_cargadas){
+            Cargar_ventas();
+            ventas_cargadas = true;
+        }
     }//GEN-LAST:event_tb_ventasActionPerformed
 
     private void tb_distribuidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_distribuidoresActionPerformed
         jTabbedPane2.setSelectedIndex(3);
         if(!distribuidores_cargados){
-            //Cargar_distribuidores();
+            Cargar_distribuidores();
+            distribuidores_cargados = true;
         }
     }//GEN-LAST:event_tb_distribuidoresActionPerformed
 
@@ -570,6 +636,7 @@ public class Principal extends javax.swing.JFrame {
             jl_panesMouseClicked(null);
             Cargar_inventario();
             Cargar_Sub_Inventario("Pan");
+            productos_cargados = true;
         }
     }//GEN-LAST:event_tb_inventarioActionPerformed
 
@@ -578,6 +645,7 @@ public class Principal extends javax.swing.JFrame {
         jTabbedPane2.setSelectedIndex(1);
         if(!empleados_cargados){
             Cargar_empleados();
+            empleados_cargados = true;
         }
     }//GEN-LAST:event_tb_empleadosActionPerformed
 
