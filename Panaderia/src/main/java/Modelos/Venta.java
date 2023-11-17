@@ -36,6 +36,11 @@ public class Venta {
         this.cantidad_productos = cantidad_productos;
     }
     
+    public Venta(String fecha, String vendedor){
+        this.fecha = fecha;
+        this.vendedor = vendedor;
+    };
+    
     public void agregar_producto(String producto, int cantidad, int precio) throws Exception{
         try {
             int[] productos_arr = new int[2];

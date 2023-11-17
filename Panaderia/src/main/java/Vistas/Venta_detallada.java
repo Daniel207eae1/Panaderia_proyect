@@ -65,11 +65,11 @@ public class Venta_detallada extends javax.swing.JFrame {
         tabla_ventas_detallada.setShowGrid(true);
         jScrollPane1.setViewportView(tabla_ventas_detallada);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("TOTAL:");
 
-        jl_total.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jl_total.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jl_total.setForeground(new java.awt.Color(51, 51, 51));
         jl_total.setText("0");
 

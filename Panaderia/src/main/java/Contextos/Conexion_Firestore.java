@@ -116,6 +116,24 @@ public class Conexion_Firestore {
         return pass;
     }
     
+    public static Map<String, String> Buscar_sucursales() throws Exception{
+        //Nombre, ID
+        Map<String, String> ids = new ArrayMap<>();
+        try {
+            ApiFuture<QuerySnapshot> future = db.collection("Sucursales").get();
+            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+            
+            for (QueryDocumentSnapshot document : documents) {
+                Map<String, Object> mp = document.getData();
+                ids.put(mp.get("Nombre").toString(), document.getId());
+            }
+        } 
+        catch (Exception e) {
+            throw new Exception("Buscar_sucursales: \n"+e.getMessage());
+        }
+        return ids;
+    }
+    
     public static List<Producto> ver_inventario(String sucursal) throws Exception{
         List<Producto> productos = new ArrayList<>();
         try {
