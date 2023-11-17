@@ -256,7 +256,6 @@ public class Facturacion extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Sucursal");
 
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\jhoni\\OneDrive\\Documentos\\GitHub\\Panaderia_proyect\\Panaderia\\src\\main\\resources\\Imagenes\\searchicon (1).png")); // NOI18N
         jLabel7.setText("jLabel7");
 
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

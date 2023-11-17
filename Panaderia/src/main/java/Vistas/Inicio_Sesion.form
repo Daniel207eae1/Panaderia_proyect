@@ -71,8 +71,8 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jToggleButton3" min="-2" pref="206" max="-2" attributes="0"/>
-                              <Component id="jToggleButton2" min="-2" pref="206" max="-2" attributes="0"/>
+                              <Component id="tb_administracion" min="-2" pref="206" max="-2" attributes="0"/>
+                              <Component id="tb_facturacion" min="-2" pref="206" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -91,16 +91,16 @@
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                   <Component id="Logo" min="-2" pref="126" max="-2" attributes="0"/>
                   <EmptySpace pref="90" max="32767" attributes="0"/>
-                  <Component id="jToggleButton2" min="-2" pref="56" max="-2" attributes="0"/>
+                  <Component id="tb_facturacion" min="-2" pref="56" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
-                  <Component id="jToggleButton3" min="-2" pref="56" max="-2" attributes="0"/>
+                  <Component id="tb_administracion" min="-2" pref="56" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JToggleButton" name="jToggleButton2">
+        <Component class="javax.swing.JToggleButton" name="tb_facturacion">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f4" green="f4" red="f4" type="rgb"/>
@@ -119,10 +119,10 @@
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_facturacionActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="jToggleButton3">
+        <Component class="javax.swing.JToggleButton" name="tb_administracion">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f4" green="f4" red="f4" type="rgb"/>
@@ -174,7 +174,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jComboBox1" alignment="1" pref="331" max="32767" attributes="0"/>
+                      <Component id="cb_sucursal" alignment="1" pref="331" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -186,13 +186,13 @@
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="btn_entrar" min="-2" pref="123" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btn_entrar" min="-2" pref="123" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -204,7 +204,7 @@
                       <Component id="btn_minimizar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                  <Component id="jComboBox1" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="cb_sucursal" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -223,7 +223,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="cb_sucursal">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d9" green="d9" red="d9" type="rgb"/>

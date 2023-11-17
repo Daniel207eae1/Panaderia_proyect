@@ -4,6 +4,7 @@
  */
 package Vistas;
 
+import Contextos.Conexion_Firestore;
 import Modificados.Colores;
 import Modificados.panel_degrade1;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
@@ -54,11 +55,11 @@ public class Inicio_Sesion extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
+        tb_facturacion = new javax.swing.JToggleButton();
+        tb_administracion = new javax.swing.JToggleButton();
         Logo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cb_sucursal = new javax.swing.JComboBox<>();
         tf_usuario = new javax.swing.JTextField();
         pf_contraseña = new javax.swing.JPasswordField();
         btn_entrar = new javax.swing.JButton();
@@ -82,26 +83,26 @@ public class Inicio_Sesion extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        jToggleButton2.setBackground(new java.awt.Color(244, 244, 244));
-        buttonGroup1.add(jToggleButton2);
-        jToggleButton2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jToggleButton2.setForeground(new java.awt.Color(51, 51, 51));
-        jToggleButton2.setText("FACTURACION");
-        jToggleButton2.setAlignmentY(0.0F);
-        jToggleButton2.setBorderPainted(false);
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+        tb_facturacion.setBackground(new java.awt.Color(244, 244, 244));
+        buttonGroup1.add(tb_facturacion);
+        tb_facturacion.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        tb_facturacion.setForeground(new java.awt.Color(51, 51, 51));
+        tb_facturacion.setText("FACTURACION");
+        tb_facturacion.setAlignmentY(0.0F);
+        tb_facturacion.setBorderPainted(false);
+        tb_facturacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
+                tb_facturacionActionPerformed(evt);
             }
         });
 
-        jToggleButton3.setBackground(new java.awt.Color(244, 244, 244));
-        buttonGroup1.add(jToggleButton3);
-        jToggleButton3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jToggleButton3.setForeground(new java.awt.Color(51, 51, 51));
-        jToggleButton3.setText("ADMINISTRACION");
-        jToggleButton3.setAlignmentY(0.0F);
-        jToggleButton3.setBorderPainted(false);
+        tb_administracion.setBackground(new java.awt.Color(244, 244, 244));
+        buttonGroup1.add(tb_administracion);
+        tb_administracion.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        tb_administracion.setForeground(new java.awt.Color(51, 51, 51));
+        tb_administracion.setText("ADMINISTRACION");
+        tb_administracion.setAlignmentY(0.0F);
+        tb_administracion.setBorderPainted(false);
 
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo Total.png"))); // NOI18N
 
@@ -114,8 +115,8 @@ public class Inicio_Sesion extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tb_administracion, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tb_facturacion, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
@@ -128,19 +129,19 @@ public class Inicio_Sesion extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tb_facturacion, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81)
-                .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tb_administracion, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(239, 239, 239))
         );
 
         jPanel2.setBackground(new java.awt.Color(244, 244, 244));
         jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        jComboBox1.setBackground(new java.awt.Color(217, 217, 217));
-        jComboBox1.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sucursal Bello", "Sucursal Robledo" }));
+        cb_sucursal.setBackground(new java.awt.Color(217, 217, 217));
+        cb_sucursal.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        cb_sucursal.setForeground(new java.awt.Color(51, 51, 51));
+        cb_sucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sucursal Bello", "Sucursal Robledo" }));
 
         tf_usuario.setBackground(new java.awt.Color(217, 217, 217));
         tf_usuario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -231,7 +232,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, 331, Short.MAX_VALUE)
+                    .addComponent(cb_sucursal, javax.swing.GroupLayout.Alignment.TRAILING, 0, 331, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -240,12 +241,12 @@ public class Inicio_Sesion extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +255,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
                     .addComponent(btn_close)
                     .addComponent(btn_minimizar))
                 .addGap(56, 56, 56)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cb_sucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(116, 116, 116)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -346,10 +347,48 @@ public class Inicio_Sesion extends javax.swing.JFrame {
 
     private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entrarActionPerformed
         // TODO add your handling code here:
-        //TESTEO
-        Principal p = new Principal();
-        p.setVisible(true);
-        this.dispose();
+        //REAL
+        try {
+            String passwordString = new String(pf_contraseña.getPassword());
+            if(tf_usuario.getText().isBlank()||tf_usuario.getText().isEmpty())
+                throw new Exception("Ingrese un usuario.");
+            if(passwordString.isBlank()||passwordString.isEmpty())
+                throw new Exception("Ingrese una contraseña.");
+            if(!tb_facturacion.isSelected()&&!tb_administracion.isSelected())
+                throw new Exception("Seleccione una de las dos opciones");
+            
+            String tipo_ingreso = "facturacion";
+            if(tb_administracion.isSelected()) tipo_ingreso = "administracion";
+            
+            String sucursal="";
+            switch(cb_sucursal.getSelectedItem().toString()){
+                case "Sucursal Bello":
+                    sucursal = "Bello";
+                    break;
+                case "Sucursal Robledo":
+                    sucursal = "Robledo";
+                    break;
+            }
+            
+            System.out.println(passwordString);
+            
+            boolean pass = Conexion_Firestore.LogIn(tipo_ingreso, tf_usuario.getText(), passwordString, sucursal);
+            
+            if(pass&&tipo_ingreso.equals("facturacion")){
+                Facturacion f = new Facturacion();
+                f.setVisible(true);
+                this.dispose();
+            }
+            else if(pass&&tipo_ingreso.equals("administracion")){
+                Principal p = new Principal();
+                p.setVisible(true);
+                this.dispose();
+            }
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al ingresar: \n"+e.getMessage());
+        }
+            
     }//GEN-LAST:event_btn_entrarActionPerformed
 
     private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
@@ -362,12 +401,12 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         jLabel3.setForeground(Colores.color_foreground_gray);
     }//GEN-LAST:event_jLabel3MouseExited
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+    private void tb_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_facturacionActionPerformed
         // TODO add your handling code here:
         Facturacion f = new Facturacion();
         f.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
+    }//GEN-LAST:event_tb_facturacionActionPerformed
 
     private void SetImageLabel(){
         ImageIcon icLogo = new ImageIcon(getClass().getResource("/Imagenes/Logo Total.png"));
@@ -383,15 +422,15 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     private javax.swing.JButton btn_entrar;
     private javax.swing.JLabel btn_minimizar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cb_sucursal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JPasswordField pf_contraseña;
+    private javax.swing.JToggleButton tb_administracion;
+    private javax.swing.JToggleButton tb_facturacion;
     private javax.swing.JTextField tf_usuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,13 +7,16 @@ package Modelos;
 
 public class Distribuidor {
     
+    public String id;
+    
     public String nombre;
     
     public String numero;
     
     public String direccion;
     
-    public Distribuidor(String nombre, String numero, String direccion){
+    public Distribuidor(String id, String nombre, String numero, String direccion){
+        this.id = id;
         this.nombre = nombre;
         this.numero = numero;
         this.direccion = direccion;

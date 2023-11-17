@@ -4,10 +4,11 @@
  */
 package Modelos;
 
-import java.util.Date;
 
 
 public class Empleado {
+    public String id;
+    
     public String cedula;
     
     public String nombre;
@@ -26,7 +27,8 @@ public class Empleado {
     
     public String cargo;
     
-    public Empleado(String cedula, String nombre, String apellido, int salario, String celular, String correo, String fecha_nacimiento, String fecha_afiliacion, String cargo){
+    public Empleado(String id, String cedula, String nombre, String apellido, int salario, String celular, String correo, String fecha_nacimiento, String fecha_afiliacion, String cargo){
+        this.id = id;
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;

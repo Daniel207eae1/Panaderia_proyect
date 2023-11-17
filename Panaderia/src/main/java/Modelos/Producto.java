@@ -6,6 +6,8 @@ package Modelos;
 
 public class Producto {
     
+    public String id;
+    
     public String nombre;
     
     public int stock;
@@ -16,7 +18,8 @@ public class Producto {
     
     public String tipo;
     
-    public Producto(String nombre, int stock, int precio_u, String distribuidor, String tipo){
+    public Producto(String id, String nombre, int stock, int precio_u, String distribuidor, String tipo){
+        this.id = id;
         this.nombre = nombre;
         this.stock = stock;
         this.precio_u = precio_u;
