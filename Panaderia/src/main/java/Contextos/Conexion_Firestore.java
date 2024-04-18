@@ -194,13 +194,13 @@ public class Conexion_Firestore {
         try {
             
             ////////
-            ApiFuture<QuerySnapshot> future = db.collection("Sucursales").document(sucursal).collection("Ventas").get();
-            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-            
-            for (QueryDocumentSnapshot document : documents) {
-                Map<String, Object> mp = document.getData();
-                Agregar_venta(document.getId(),mp,tm_ventas);
-            }
+//            ApiFuture<QuerySnapshot> future = db.collection("Sucursales").document(sucursal).collection("Ventas").get();
+//            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+//            
+//            for (QueryDocumentSnapshot document : documents) {
+//                Map<String, Object> mp = document.getData();
+//                Agregar_venta(document.getId(),mp,tm_ventas);
+//            }
             ////////
             CollectionReference collection = db.collection("Sucursales").document(sucursal).collection("Ventas");
             collection.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -236,7 +236,7 @@ public class Conexion_Firestore {
     private static void Agregar_venta(String id, Map<String, Object> mp, DefaultTableModel tm_ventas) throws Exception{
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            String fecha = dateFormat.format(((Timestamp)mp.get("fecha")).toDate());
+            String fecha = mp.get("fecha").toString();
             int cn = ((Number)mp.get("cantidad_productos")).intValue();
             Venta p = new Venta(id, fecha, (String)mp.get("vendedor_cc"), (String)mp.get("cliente"), ((Number)mp.get("total")).intValue(),cn);
 
@@ -385,12 +385,11 @@ public class Conexion_Firestore {
     
     public static void Insertar_venta(Venta v) throws Exception{
         try {
-            LocalDateTime fechaHoraActual = LocalDateTime.now();
             Map<String, Object> mp = new ArrayMap<>();
             mp.put("cliente", v.cliente);
             mp.put("total", v.total);
             mp.put("vendedor_cc", v.vendedor);
-            mp.put("fecha",fechaHoraActual);
+            mp.put("fecha","17/11/2023");
             mp.put("cantidad_productos", v.cantidad_productos);
             
             for (int i = 1; i <= v.cantidad_productos; i++) {
@@ -400,9 +399,9 @@ public class Conexion_Firestore {
                 String p = "p"+i;
                 String vi = "v"+i;
                 
-                mp.put(cn, v.productos.get(keys[i].toString())[0]);
-                mp.put(vi, v.productos.get(keys[i].toString())[1]);
-                mp.put(p,keys[i].toString());
+                mp.put(cn, v.productos.get(keys[i-1].toString())[0]);
+                mp.put(vi, v.productos.get(keys[i-1].toString())[1]);
+                mp.put(p,keys[i-1].toString());
             }  
             
             ApiFuture<DocumentReference> future = db.collection("Sucursales").document(Sesion.sucursal).collection("Ventas").add(mp);

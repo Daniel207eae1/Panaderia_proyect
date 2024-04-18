@@ -403,9 +403,9 @@ public class Inicio_Sesion extends javax.swing.JFrame {
 
     private void tb_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_facturacionActionPerformed
         // TODO add your handling code here:
-        Facturacion f = new Facturacion();
-        f.setVisible(true);
-        this.dispose();
+//        Facturacion f = new Facturacion();
+//        f.setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_tb_facturacionActionPerformed
 
     private void SetImageLabel(){

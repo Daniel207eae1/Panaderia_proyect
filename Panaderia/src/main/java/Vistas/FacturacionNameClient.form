@@ -67,7 +67,7 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace pref="72" max="32767" attributes="0"/>
-                  <Component id="jTextField2" min="-2" pref="261" max="-2" attributes="0"/>
+                  <Component id="tf_cliente" min="-2" pref="261" max="-2" attributes="0"/>
                   <EmptySpace pref="78" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -83,7 +83,7 @@
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  <Component id="jTextField2" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="tf_cliente" min="-2" pref="41" max="-2" attributes="0"/>
                   <EmptySpace pref="34" max="32767" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
@@ -105,6 +105,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -114,7 +117,7 @@
             <Property name="text" type="java.lang.String" value="Nombre del cliente"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="tf_cliente">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d9" green="d9" red="d9" type="rgb"/>

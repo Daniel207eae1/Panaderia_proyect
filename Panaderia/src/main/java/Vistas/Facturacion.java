@@ -86,7 +86,23 @@ public class Facturacion extends javax.swing.JFrame {
     
     private void Agregar_producto() throws Exception{
         try {
+            venta.cantidad_productos+=1;
+            String nombre = ComboProduct.getSelectedItem().toString();
+            String tipo = ComboTipoProduct.getSelectedItem().toString();
+            int cantidad = Integer.valueOf(ComboCant.getSelectedItem().toString());
+            int pu=0,total;
+            for (Producto p: productos_venta){
+                if(p.nombre.equals(nombre)){
+                    pu = p.precio_u;
+                    break;
+                }
+            }
+            total = pu*cantidad;
+            venta.productos.put(nombre, new int[]{cantidad,total});
+            venta.total+=total;
             
+            jl_total.setText(String.valueOf(venta.total)+"$");
+            tm_facturacion.addRow(new Object[]{nombre,tipo,cantidad,pu,total});
         } 
         catch (Exception e) {
             throw new Exception("Agregar_producto: \n"+e.getMessage());
@@ -172,13 +188,26 @@ public class Facturacion extends javax.swing.JFrame {
             throw new Exception("Cargar_productos venta: \n"+e.getMessage());
         }
     }
+    
+    private void Limpiar_campos() throws Exception{
+        try {
+            cargar_productos_venta();
+            actualizar_combobox();
+            actualizar_cantidades();
+            jl_total.setText("0$");
+            tm_facturacion.setRowCount(0);
+        } 
+        catch (Exception e) {
+            throw new Exception("Limpiar_campos: "+e.getMessage());
+        }
+    }
 
-    private void cargar_default_table_model() throws Exception{
+    private void cargar_default_table_model() throws Exception {
         try {
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-            String[] c1 = {"Producto","Tipo de producto","Cantidad","Precio"};
+            String[] c1 = {"Producto","Tipo de producto","Cantidad","Precio","Subtotal"};
             tm_facturacion = new DefaultTableModel(c1, 0);
             tble_factura.setModel(tm_facturacion);
             tble_factura.setDefaultRenderer(Object.class, centerRenderer);
@@ -265,7 +294,7 @@ public class Facturacion extends javax.swing.JFrame {
         tble_factura = new javax.swing.JTable();
         btn_agregar_producto = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jl_total = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -385,11 +414,11 @@ public class Facturacion extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Producto", "Tipo de producto", "Cantidad", "Precio"
+                "Producto", "Tipo de producto", "Cantidad", "Precio", "Subtotal"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -413,9 +442,9 @@ public class Facturacion extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("TOTAL:");
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel8.setText("0");
+        jl_total.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jl_total.setForeground(new java.awt.Color(51, 51, 51));
+        jl_total.setText("0$");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -447,7 +476,7 @@ public class Facturacion extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
-                                .addComponent(jLabel8)))
+                                .addComponent(jl_total)))
                         .addGap(0, 273, Short.MAX_VALUE)))
                 .addGap(45, 45, 45))
         );
@@ -471,7 +500,7 @@ public class Facturacion extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel8))
+                    .addComponent(jl_total))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
                 .addGap(41, 41, 41))
@@ -622,7 +651,12 @@ public class Facturacion extends javax.swing.JFrame {
     }
     
     private void btn_agregar_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar_productoActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            Agregar_producto();
+        } catch (Exception ex) {
+            Logger.getLogger(Facturacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btn_agregar_productoActionPerformed
 
     private void tb_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_inventarioActionPerformed
@@ -656,12 +690,19 @@ public class Facturacion extends javax.swing.JFrame {
     private void btn_crear_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crear_facturaActionPerformed
         // TODO add your handling code here:
         //CONTROLES
-        
-        
         //CLIENTE NOMBRE
-        FacturacionNameClient fnc = new FacturacionNameClient();
-        fnc.setLocationRelativeTo(this);
-        fnc.setVisible(true);
+        
+        
+        try {
+            FacturacionNameClient fnc = new FacturacionNameClient(venta);
+            fnc.setLocationRelativeTo(this);
+            fnc.setVisible(true);
+            
+            Limpiar_campos();
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error creando la factura: \n"+e.getMessage());
+        }
     }//GEN-LAST:event_btn_crear_facturaActionPerformed
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -710,7 +751,6 @@ public class Facturacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -721,6 +761,7 @@ public class Facturacion extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel jl_total;
     private javax.swing.JToggleButton tb_facturacion;
     private javax.swing.JToggleButton tb_inventario;
     private javax.swing.JTable tble_factura;
