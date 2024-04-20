@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Vistas;
+package Vistas.Administracion;
 
+import Vistas.Facturacion.Facturacion;
 import Contextos.Conexion_Firestore;
 import Modificados.Colores;
 import Modificados.panel_degrade1;
@@ -241,12 +242,12 @@ public class Inicio_Sesion extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,6 +351,9 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         //REAL
         try {
             String passwordString = new String(pf_contraseña.getPassword());
+            int passwordHash = passwordString.hashCode();
+            System.out.println(passwordHash);
+            
             if(tf_usuario.getText().isBlank()||tf_usuario.getText().isEmpty())
                 throw new Exception("Ingrese un usuario.");
             if(passwordString.isBlank()||passwordString.isEmpty())
@@ -370,9 +374,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
                     break;
             }
             
-            System.out.println(passwordString);
-            
-            boolean pass = Conexion_Firestore.LogIn(tipo_ingreso, tf_usuario.getText(), passwordString, sucursal);
+            boolean pass = Conexion_Firestore.LogIn(tipo_ingreso, tf_usuario.getText(), passwordHash, sucursal);
             
             if(pass&&tipo_ingreso.equals("facturacion")){
                 Facturacion f = new Facturacion();

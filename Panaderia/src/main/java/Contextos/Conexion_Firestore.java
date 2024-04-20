@@ -9,6 +9,7 @@ import Modelos.Empleado;
 import Modelos.Producto;
 import Modelos.Venta;
 import com.google.api.client.util.ArrayMap;
+import com.google.api.client.util.DateTime;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.Timestamp;
@@ -17,6 +18,7 @@ import com.google.cloud.firestore.DocumentChange;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.EventListener;
+import com.google.cloud.firestore.FieldValue;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreException;
 import com.google.cloud.firestore.Query;
@@ -28,7 +30,9 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +78,7 @@ public class Conexion_Firestore {
         }
     }
     
-    public static boolean LogIn(String tipo_ingreso,String id, String contraseña, String sucursal) throws Exception{
+    public static boolean LogIn(String tipo_ingreso,String id, int contraseñaHash, String sucursal) throws Exception{
         boolean pass = false;
         try {
             Query query = db.collection("Sucursales")
@@ -94,8 +98,7 @@ public class Conexion_Firestore {
                 }
                 for(DocumentSnapshot d1 : q1snapshot.get().getDocuments()){
                     Map<String, Object> mp = d1.getData();
-                    System.out.println("c "+contraseña+ "  mp "+ mp.get("contraseña"));
-                    if(contraseña.equals(mp.get("contraseña").toString())){
+                    if(contraseñaHash == ((Number)mp.get("contraseña")).intValue()){
                         if(tipo_ingreso.equals("administracion")&&!(boolean)mp.get("admin")){
                             throw new Exception("Debe ser administrador para poder entrar a esta sección.");
                         }
@@ -246,7 +249,7 @@ public class Conexion_Firestore {
                             ((Number)mp.get("cn"+String.valueOf(i))).intValue(),
                             ((Number)mp.get("v"+String.valueOf(i))).intValue()});
             }
-
+            
             tm_ventas.addRow(new Object[]{p.fecha,p.vendedor,p.cliente,p.total});
             ventas.add(p);
         } 
@@ -385,11 +388,16 @@ public class Conexion_Firestore {
     
     public static void Insertar_venta(Venta v) throws Exception{
         try {
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String formattedDate = currentDate.format(formatter);
+            int stock;
+            
             Map<String, Object> mp = new ArrayMap<>();
             mp.put("cliente", v.cliente);
             mp.put("total", v.total);
             mp.put("vendedor_cc", v.vendedor);
-            mp.put("fecha","17/11/2023");
+            mp.put("fecha",formattedDate);
             mp.put("cantidad_productos", v.cantidad_productos);
             
             for (int i = 1; i <= v.cantidad_productos; i++) {
@@ -402,9 +410,23 @@ public class Conexion_Firestore {
                 mp.put(cn, v.productos.get(keys[i-1].toString())[0]);
                 mp.put(vi, v.productos.get(keys[i-1].toString())[1]);
                 mp.put(p,keys[i-1].toString());
-            }  
-            
+                
+                
+                //ACTUALIZACIÓN DE STOCK
+                Query query = db.collection("Sucursales").document(Sesion.sucursal).collection("Inventario").whereEqualTo("nombre", keys[i-1]);
+                ApiFuture<QuerySnapshot> q1snapshot = query.get();
+                
+                
+                if(q1snapshot.get().isEmpty()){
+                    throw new Exception("Error: Producto no encontrado.");
+                }
+                for(DocumentSnapshot d1 : q1snapshot.get().getDocuments()){
+                    d1.getReference().update("stock", FieldValue.increment(-(v.productos.get(keys[i-1].toString())[0])));
+                }
+                
+            }
             ApiFuture<DocumentReference> future = db.collection("Sucursales").document(Sesion.sucursal).collection("Ventas").add(mp);
+            
         } 
         catch (Exception e) {
             throw new Exception("Insertar_venta: \n"+e.getMessage());

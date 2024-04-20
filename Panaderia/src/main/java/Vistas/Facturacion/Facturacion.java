@@ -2,19 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Vistas;
+package Vistas.Facturacion;
 
 import Contextos.Conexion_Firestore;
 import Contextos.Sesion;
 import Modelos.Producto;
 import Modelos.Venta;
-import Modificados.Colores;
 import Modificados.panel_degrade1;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Desktop;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,15 +19,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 import javax.swing.UIManager;
-import javax.swing.plaf.BorderUIResource;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -86,20 +77,39 @@ public class Facturacion extends javax.swing.JFrame {
     
     private void Agregar_producto() throws Exception{
         try {
-            venta.cantidad_productos+=1;
             String nombre = ComboProduct.getSelectedItem().toString();
             String tipo = ComboTipoProduct.getSelectedItem().toString();
             int cantidad = Integer.valueOf(ComboCant.getSelectedItem().toString());
+            if(cantidad==0){
+                return;
+            }
             int pu=0,total;
+            boolean estaba=false;
+            
             for (Producto p: productos_venta){
                 if(p.nombre.equals(nombre)){
                     pu = p.precio_u;
                     break;
                 }
             }
+            //Verificar si está
+            for (int i = 0; i < tm_facturacion.getRowCount(); i++) {
+                if(tm_facturacion.getValueAt(i, 0).toString().equals(nombre)){
+                    tm_facturacion.removeRow(i);
+                    estaba=true;
+                }
+            }
+            
+            //Si está, entonces hacer esto
+            if(estaba){
+                venta.total-=venta.productos.get(nombre)[1];
+                venta.cantidad_productos-=1;
+                venta.productos.remove(nombre);
+            }
             total = pu*cantidad;
-            venta.productos.put(nombre, new int[]{cantidad,total});
             venta.total+=total;
+            venta.productos.put(nombre, new int[]{cantidad,total});
+            venta.cantidad_productos+=1;
             
             jl_total.setText(String.valueOf(venta.total)+"$");
             tm_facturacion.addRow(new Object[]{nombre,tipo,cantidad,pu,total});
@@ -109,7 +119,7 @@ public class Facturacion extends javax.swing.JFrame {
         }
     }
     
-    private void actualizar_cantidades() throws Exception{
+    public void actualizar_cantidades() throws Exception{
         try {
             String producto;
             if(ComboProduct.getSelectedItem()==null){
@@ -164,7 +174,7 @@ public class Facturacion extends javax.swing.JFrame {
         }
     }
     
-    private void cargar_productos_venta() throws Exception{
+    public void cargar_productos_venta() throws Exception{
         try {
             tm_inventario.setRowCount(0);
             productos_ventas_pan.clear();
@@ -310,7 +320,6 @@ public class Facturacion extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1268, 720));
 
         jPanel2.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
@@ -694,10 +703,9 @@ public class Facturacion extends javax.swing.JFrame {
         
         
         try {
-            FacturacionNameClient fnc = new FacturacionNameClient(venta);
+            FacturacionNameClient fnc = new FacturacionNameClient(venta, this);
             fnc.setLocationRelativeTo(this);
             fnc.setVisible(true);
-            
             Limpiar_campos();
         } 
         catch (Exception e) {

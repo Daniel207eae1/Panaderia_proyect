@@ -2,31 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Vistas;
+package Vistas.Administracion;
 
 import Contextos.Conexion_Firestore;
 import Contextos.Sesion;
 import Modelos.Distribuidor;
 import Modelos.Empleado;
 import Modelos.Producto;
-import Modelos.Venta;
 import Modificados.Colores;
 import Modificados.panel_degrade1;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -51,6 +43,8 @@ public class Principal extends javax.swing.JFrame {
     boolean productos_cargados = false;
     boolean distribuidores_cargados = false;
     boolean ventas_cargadas = false;
+    
+    boolean I=false,E=false,V=false,D=false;
     
     List<Producto> productos = new ArrayList<>();
     List<Producto> productos_pan = new ArrayList<>();
@@ -89,89 +83,7 @@ public class Principal extends javax.swing.JFrame {
                     }
                 }
             });
-            
-            tabla_distribuidores.addKeyListener(new KeyListener() {
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    // No necesitamos implementar este método para detectar la tecla "Enter"
-                }
-
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    // Detectar la tecla "Enter" (código KeyEvent.VK_ENTER)
-                    if (e.getKeyCode() == KeyEvent.VK_INSERT) {
-                        // Agregar una nueva fila al modelo de la tabla
-                        System.out.println("insert");
-                        Insertar_distribuidor();
-                    }
-                    
-                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                        int filaSeleccionada = tabla_distribuidores.getSelectedRow();
-                        Actualizar_distribuidores(filaSeleccionada);
-                    }
-                }
-
-                @Override
-                public void keyReleased(KeyEvent e) {
-                    // No necesitamos implementar este método para detectar la tecla "Enter"
-                }
-            });
-            
-            tabla_inventario.addKeyListener(new KeyListener() {
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    // No necesitamos implementar este método para detectar la tecla "Enter"
-                }
-
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    // Detectar la tecla "Enter" (código KeyEvent.VK_ENTER)
-                    if (e.getKeyCode() == KeyEvent.VK_INSERT) {
-                        // Agregar una nueva fila al modelo de la tabla
-                        System.out.println("insert");
-                        Insertar_producto();
-                    }
-                    
-                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                        int filaSeleccionada = tabla_inventario.getSelectedRow();
-                        Actualizar_inventario(filaSeleccionada);
-                    }
-                }
-
-                @Override
-                public void keyReleased(KeyEvent e) {
-                    // No necesitamos implementar este método para detectar la tecla "Enter"
-                }
-            });
-            
-            tabla_empleados.addKeyListener(new KeyListener() {
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    // No necesitamos implementar este método para detectar la tecla "Enter"
-                }
-
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    // Detectar la tecla "Enter" (código KeyEvent.VK_ENTER)
-                    if (e.getKeyCode() == KeyEvent.VK_INSERT) {
-                        // Agregar una nueva fila al modelo de la tabla
-                        System.out.println("insert");
-                        Insertar_empleado();
-                    }
-
-                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                        int filaSeleccionada = tabla_empleados.getSelectedRow();
-                        Actualizar_empleados(filaSeleccionada);
-                    }
-                }
-
-                @Override
-                public void keyReleased(KeyEvent e) {
-                    // No necesitamos implementar este método para detectar la tecla "Enter"
-                }
-            });
-            
-            
+            I=true;
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         } 
         catch (Exception e) {
@@ -201,6 +113,8 @@ public class Principal extends javax.swing.JFrame {
                 productos_otros.add(new Producto(id,"",0,0,"","Otros"));
             
             tm_productos.addRow(new Object[]{"", "", "",""});
+            
+            Editar_campo(1,tm_productos.getRowCount()-1);
         } 
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error al insertar productos: \n"+e.getMessage());
@@ -229,7 +143,7 @@ public class Principal extends javax.swing.JFrame {
         }
     }
     
-    private void Actualizar_inventario(int i){
+    protected void Actualizar_inventario(int i){
         try {
             if(pan_click){
                 productos_pan.get(i).nombre = (String)tm_productos.getValueAt(i, 0);
@@ -296,12 +210,14 @@ public class Principal extends javax.swing.JFrame {
         tm_productos = new DefaultTableModel(c1, 0);
         tabla_inventario.setModel(tm_productos);
         tabla_inventario.setDefaultRenderer(Object.class, centerRenderer);
+        tabla_inventario.setCellEditor(null);
         
         String[] c2 = {"Cedula","Nombre","Apellidos","Salario","Celular",
         "Correo","Fecha nacimiento","Fecha afiliacion","Cargo"};
         tm_empleados = new DefaultTableModel(c2, 0);
         tabla_empleados.setModel(tm_empleados);
         tabla_empleados.setDefaultRenderer(Object.class, centerRenderer);
+        tabla_empleados.setCellEditor(null);
         
         String[] c3 = {"Fecha","Vendedor CC","Cliente","Total"};
         tm_ventas = new DefaultTableModel(c3, 0){
@@ -313,11 +229,13 @@ public class Principal extends javax.swing.JFrame {
         };
         tabla_ventas.setModel(tm_ventas);
         tabla_ventas.setDefaultRenderer(Object.class, centerRenderer);
+        tabla_ventas.setCellEditor(null);
         
         String[] c4 = {"Nombre","Numero","Direccion"};
         tm_distribuidores = new DefaultTableModel(c4, 0);
         tabla_distribuidores.setModel(tm_distribuidores);
         tabla_distribuidores.setDefaultRenderer(Object.class, centerRenderer);
+        tabla_distribuidores.setCellEditor(null);
     }
     
     private void Cargar_inventario(){
@@ -392,7 +310,7 @@ public class Principal extends javax.swing.JFrame {
         }
     }
     
-    private void Cargar_distribuidores(){
+    protected void Cargar_distribuidores(){
         try {
             distribuidores = Conexion_Firestore.ver_distribuidores(Sesion.sucursal);
             tm_distribuidores.setRowCount(0);
@@ -405,14 +323,14 @@ public class Principal extends javax.swing.JFrame {
         }
     }
     
-    private void Iconos() throws Exception{
+    private void Editar_campo(int opcion,int index) throws Exception{
         try {
-            ImageIcon ImItemHerramientas = new ImageIcon(getClass().getResource("/Imagenes/Herramientas.png"));
-            Icon icHerramientas = new ImageIcon(ImItemHerramientas.getImage().getScaledInstance(26,26, Image.SCALE_DEFAULT));
-            ItemHerramientas.setIcon(icHerramientas);
+            Subseccion sb = new Subseccion(this, opcion, index);
+            this.setEnabled(false);
+            sb.setVisible(true);
         } 
         catch (Exception e) {
-            throw new Exception("Ocurrio un error al cargar los iconos: "+e.getMessage());
+            throw new Exception("Editar campo: "+e.getMessage());
         }
     }
     /**
@@ -439,10 +357,12 @@ public class Principal extends javax.swing.JFrame {
         jl_panes = new javax.swing.JLabel();
         jl_malteadas = new javax.swing.JLabel();
         jl_otros = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla_empleados = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabla_ventas = new javax.swing.JTable();
@@ -450,6 +370,7 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tabla_distribuidores = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         ItemHerramientas = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -559,11 +480,20 @@ public class Principal extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        tabla_inventario.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabla_inventario.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabla_inventario.setShowGrid(true);
         tabla_inventario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -645,6 +575,16 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setBackground(new java.awt.Color(198, 87, 45));
+        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(244, 244, 244));
+        jButton4.setText("Editar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -653,6 +593,8 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
@@ -679,7 +621,9 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
 
@@ -695,7 +639,18 @@ public class Principal extends javax.swing.JFrame {
             new String [] {
                 "Cedula", "Nombre", "Apellidos", "Salario", "Celular", "Correo", "Fecha nacimiento", "Fecha Afiliacion", "Cargo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabla_empleados.setRowSelectionAllowed(true);
+        tabla_empleados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabla_empleados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabla_empleados.setShowGrid(true);
         jScrollPane2.setViewportView(tabla_empleados);
 
@@ -709,6 +664,16 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setBackground(new java.awt.Color(198, 87, 45));
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(244, 244, 244));
+        jButton5.setText("Editar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -717,6 +682,8 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
@@ -729,7 +696,9 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(75, 75, 75)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                 .addGap(42, 42, 42)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
         );
 
@@ -745,7 +714,17 @@ public class Principal extends javax.swing.JFrame {
             new String [] {
                 "Fecha", "Vendedor", "Cliente", "Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabla_ventas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabla_ventas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabla_ventas.setShowGrid(true);
         jScrollPane3.setViewportView(tabla_ventas);
 
@@ -778,7 +757,17 @@ public class Principal extends javax.swing.JFrame {
             new String [] {
                 "Nombre", "Numero", "Direccion"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabla_distribuidores.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabla_distribuidores.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabla_distribuidores.setShowGrid(true);
         jScrollPane4.setViewportView(tabla_distribuidores);
 
@@ -792,6 +781,16 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setBackground(new java.awt.Color(198, 87, 45));
+        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(244, 244, 244));
+        jButton6.setText("Editar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -800,6 +799,8 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
@@ -812,7 +813,9 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(70, 70, 70)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                 .addGap(29, 29, 29)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
 
@@ -867,6 +870,10 @@ public class Principal extends javax.swing.JFrame {
             Cargar_ventas();
             ventas_cargadas = true;
         }
+        I=false;
+        E=false;
+        V=true;
+        D=false;
     }//GEN-LAST:event_tb_ventasActionPerformed
 
     private void tb_distribuidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_distribuidoresActionPerformed
@@ -875,6 +882,10 @@ public class Principal extends javax.swing.JFrame {
             Cargar_distribuidores();
             distribuidores_cargados = true;
         }
+        I=false;
+        E=false;
+        V=false;
+        D=true;
     }//GEN-LAST:event_tb_distribuidoresActionPerformed
 
     private void jPanel1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentResized
@@ -894,6 +905,10 @@ public class Principal extends javax.swing.JFrame {
             Cargar_Sub_Inventario("Pan");
             productos_cargados = true;
         }
+        I=true;
+        E=false;
+        V=false;
+        D=false;
     }//GEN-LAST:event_tb_inventarioActionPerformed
 
     private void tb_empleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_empleadosActionPerformed
@@ -903,6 +918,10 @@ public class Principal extends javax.swing.JFrame {
             Cargar_empleados();
             empleados_cargados = true;
         }
+        I=false;
+        E=true;
+        V=false;
+        D=false;
     }//GEN-LAST:event_tb_empleadosActionPerformed
 
     private void jl_otrosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_otrosMouseEntered
@@ -992,6 +1011,51 @@ public class Principal extends javax.swing.JFrame {
         Insertar_distribuidor();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try {
+            // TODO add your handling code here:
+            //Inventario
+            
+            if(tabla_inventario.getSelectedRow()==-1){
+                throw new Exception("Seleccione una fila.");
+            }
+            
+            Editar_campo(0,tabla_inventario.getSelectedRow());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error:\n"+ex.getMessage());
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {
+            // TODO add your handling code here:
+            //Empleados
+            
+            if(tabla_empleados.getSelectedRow()==-1){
+                throw new Exception("Seleccione una fila.");
+            }
+            
+            Editar_campo(0,tabla_empleados.getSelectedRow());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error:\n"+ex.getMessage());
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+       try {
+            // TODO add your handling code here:
+            //Distribuidores
+            
+            if(tabla_distribuidores.getSelectedRow()==-1){
+                throw new Exception("Seleccione una fila.");
+            }
+            
+            Editar_campo(0,tabla_distribuidores.getSelectedRow());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error:\n"+ex.getMessage());
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     private void mouse_entered_options(JLabel jl){
         ImageIcon ImItemHerramientas = new ImageIcon(getClass().getResource("/Imagenes/sublinea_entered.png"));
         Icon icHerramientas = new ImageIcon(ImItemHerramientas.getImage().getScaledInstance(107,4, Image.SCALE_DEFAULT));
@@ -1012,6 +1076,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

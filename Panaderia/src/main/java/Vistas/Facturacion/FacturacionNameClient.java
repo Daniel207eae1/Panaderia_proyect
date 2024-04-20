@@ -2,14 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Vistas;
+package Vistas.Facturacion;
 
 import Contextos.Conexion_Firestore;
 import Modelos.Cliente;
 import Modelos.Venta;
 import java.awt.Image;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,10 +19,12 @@ import javax.swing.JOptionPane;
 public class FacturacionNameClient extends javax.swing.JFrame {
 
     Venta venta;
+    Facturacion facturacion;
     
-    public FacturacionNameClient(Venta v) {
+    public FacturacionNameClient(Venta v, Facturacion f) {
         setUndecorated(true);
         venta = v;
+        facturacion = f;
         initComponents();
     }
 
@@ -160,6 +160,8 @@ public class FacturacionNameClient extends javax.swing.JFrame {
             
             try {
                 Conexion_Firestore.Insertar_venta(venta);
+                facturacion.cargar_productos_venta();
+                facturacion.actualizar_cantidades();
                 dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Ocurrio un error: \n"+ex.getMessage());
