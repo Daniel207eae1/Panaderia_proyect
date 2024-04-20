@@ -6,6 +6,10 @@ package Vistas.Administracion;
 
 import Modelos.Distribuidor;
 import java.awt.CardLayout;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +23,7 @@ public class Subseccion extends javax.swing.JFrame {
     Principal p;
     int index,opcion;
     String seccion;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
     public Subseccion(Principal p, int opcion /*0: EDITAR - 1:INSERTAR*/, int index) {
         initComponents();
@@ -43,10 +48,12 @@ public class Subseccion extends javax.swing.JFrame {
             else if(p.E) {
                 cards.show(container, "empleados");
                 seccion = "empleados";
+                Cargar_empleados();
             }
             else {
                 cards.show(container, "distribuidores");
                 seccion = "distribuidores";
+                Cargar_distribuidores();
             }
         } 
         catch (Exception e) {
@@ -72,13 +79,68 @@ public class Subseccion extends javax.swing.JFrame {
             }
             
             tf_nombre.setText(nombre);
-            System.out.println(stock);
             cb_cantidad.setSelectedIndex(stock);
             tf_precio.setText(String.valueOf(pu));
             cb_distribuidor.setSelectedItem(distribuidor);
         } 
         catch (Exception e) {
             throw new Exception("Cargar_inventario:"+e.getMessage());
+        }
+    }
+    
+    private void Cargar_empleados() throws Exception{
+        try {
+            String cedula="",nombre="",apellidos="",celular="",correo="",f_nacimiento="01/01/2024",f_afiliacion="",cargo="";
+            int salario=0;
+            
+            if(opcion==0){
+                cedula = (String)p.tm_empleados.getValueAt(index, 0);
+                nombre = (String)p.tm_empleados.getValueAt(index, 1);
+                apellidos = (String)p.tm_empleados.getValueAt(index, 2);
+                salario = (int)p.tm_empleados.getValueAt(index, 3);
+                celular = (String)p.tm_empleados.getValueAt(index, 4);
+                correo = (String)p.tm_empleados.getValueAt(index, 5);
+                f_nacimiento = (String)p.tm_empleados.getValueAt(index, 6);
+                f_afiliacion = (String)p.tm_empleados.getValueAt(index, 7);
+                cargo = (String)p.tm_empleados.getValueAt(index, 8);
+            }
+            if(opcion==1){
+                LocalDate currentDate = LocalDate.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                f_afiliacion = currentDate.format(formatter);
+            }
+            
+            tf_cedulaE.setText(cedula);
+            tf_nombreE.setText(nombre);
+            tf_apellidoE.setText(apellidos);
+            tf_salarioE.setText(String.valueOf(salario));
+            tf_celularE.setText(celular);
+            tf_correoE.setText(correo);
+            tf_cargoE.setText(cargo);
+            jd_nacimientoE.setDate(sdf.parse(f_nacimiento));
+            tf_afiliacionE.setText(f_afiliacion);
+        } 
+        catch (Exception e) {
+            throw new Exception("Cargar_empleados: "+e.getMessage());
+        }
+    }
+    
+    private void Cargar_distribuidores() throws Exception{
+        try {
+            String nombre="", numero="", direccion="";
+            
+            if(opcion==0){
+                nombre = (String)p.tm_distribuidores.getValueAt(index, 0);
+                numero = (String)p.tm_distribuidores.getValueAt(index, 1);
+                direccion = (String)p.tm_distribuidores.getValueAt(index, 2);
+            }
+            
+            tf_nombreD.setText(nombre);
+            tf_numeroD.setText(numero);
+            tf_direccionD.setText(direccion);
+        } 
+        catch (Exception e) {
+            throw new Exception("Cargar_distribuidores: "+e.getMessage());
         }
     }
     
@@ -102,14 +164,77 @@ public class Subseccion extends javax.swing.JFrame {
                 Cerrar_ventana();
             }
             else if(seccion.equals("empleados")){
+                String cedula="",nombre="",apellidos="",celular="",correo="",f_nacimiento="",
+                        f_afiliacion="",cargo="";
+                int salario=0;
                 
+                
+                cedula = tf_cedulaE.getText();
+                nombre = tf_nombreE.getText();
+                apellidos = tf_apellidoE.getText();
+                salario = Integer.parseInt(tf_salarioE.getText());
+                celular = tf_celularE.getText();
+                correo = tf_correoE.getText();
+                f_nacimiento = sdf.format(jd_nacimientoE.getDate());
+                f_afiliacion = tf_afiliacionE.getText();
+                cargo = tf_cargoE.getText();
+                
+                p.tm_empleados.setValueAt(cedula, index, 0);
+                p.tm_empleados.setValueAt(nombre, index, 1);
+                p.tm_empleados.setValueAt(apellidos, index, 2);
+                p.tm_empleados.setValueAt(salario, index, 3);
+                p.tm_empleados.setValueAt(celular, index, 4);
+                p.tm_empleados.setValueAt(correo, index, 5);
+                p.tm_empleados.setValueAt(f_nacimiento, index, 6);
+                p.tm_empleados.setValueAt(f_afiliacion, index, 7);
+                p.tm_empleados.setValueAt(cargo, index, 8);
+                
+                p.Actualizar_empleados(index);
+                JOptionPane.showMessageDialog(this, "Operación exitosa.");
+                Cerrar_ventana();
             }
             else{
+                String nombre, numero, direccion;
                 
+                nombre = tf_nombreD.getText();
+                numero = tf_numeroD.getText();
+                direccion = tf_direccionD.getText();
+                p.tm_distribuidores.setValueAt(nombre, index, 0);
+                p.tm_distribuidores.setValueAt(numero, index, 1);
+                p.tm_distribuidores.setValueAt(direccion, index, 2);
+                
+                p.Actualizar_distribuidores(index);
+                JOptionPane.showMessageDialog(this, "Operación exitosa.");
+                Cerrar_ventana();
             }
         } 
         catch (Exception e) {
             throw new Exception("Editar_registro:"+e.getMessage());
+        }
+    }
+    
+    private void Eliminar_registro() throws Exception{
+        try {
+            int op = JOptionPane.showConfirmDialog(this, "¿Está seguro?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            if(op==1) return;
+            if(seccion.equals("inventario")){
+                p.Eliminar_producto(index);
+                JOptionPane.showMessageDialog(this, "Operación exitosa.");
+                Cerrar_ventana();
+            }
+            else if(seccion.equals("empleados")){
+                p.Eliminar_empleado(index);
+                JOptionPane.showMessageDialog(this, "Operación exitosa.");
+                Cerrar_ventana();
+            }
+            else{
+                p.Eliminar_distribuido(index);
+                JOptionPane.showMessageDialog(this, "Operación exitosa.");
+                Cerrar_ventana();
+            }
+        } 
+        catch (Exception e) {
+            throw new Exception("Eliminar_registro: "+e.getMessage());
         }
     }
     
@@ -241,12 +366,6 @@ public class Subseccion extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cb_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(190, 190, 190))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(cb_distribuidor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tf_nombre)
@@ -257,7 +376,12 @@ public class Subseccion extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(tf_precio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGap(190, 190, 190))))
+                            .addGap(190, 190, 190)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cb_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(190, 190, 190)))
                 .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
@@ -467,6 +591,7 @@ public class Subseccion extends javax.swing.JFrame {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel15.setText("Fecha Afiliacion");
 
+        tf_afiliacionE.setEditable(false);
         tf_afiliacionE.setBackground(new java.awt.Color(217, 217, 217));
         tf_afiliacionE.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_afiliacionE.setForeground(new java.awt.Color(51, 51, 51));
@@ -492,21 +617,10 @@ public class Subseccion extends javax.swing.JFrame {
                         .addGap(170, 170, 170))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(tf_correoE, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                                .addGap(131, 131, 131))
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(tf_salarioE, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
                                 .addGap(190, 190, 190))
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tf_apellidoE, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tf_nombreE)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(tf_celularE)
@@ -518,7 +632,19 @@ public class Subseccion extends javax.swing.JFrame {
                                 .addGap(131, 131, 131))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(tf_afiliacionE)
-                                .addGap(131, 131, 131)))
+                                .addGap(131, 131, 131))
+                            .addComponent(tf_correoE)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(41, 41, 41))))
         );
         jPanel6Layout.setVerticalGroup(
@@ -850,23 +976,50 @@ public class Subseccion extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
-        // TODO add your handling code here:
+        try {
+            Eliminar_registro();
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar:"+e.getMessage());
+        }
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void btn_guardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardar1ActionPerformed
         // TODO add your handling code here:
+        try {
+            Editar_registro();
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar:"+e.getMessage());
+        }
     }//GEN-LAST:event_btn_guardar1ActionPerformed
 
     private void btn_cancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelar1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            Eliminar_registro();
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar:"+e.getMessage());
+        }
     }//GEN-LAST:event_btn_cancelar1ActionPerformed
 
     private void btn_guardar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardar2ActionPerformed
         // TODO add your handling code here:
+        try {
+            Editar_registro();
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar:"+e.getMessage());
+        }
     }//GEN-LAST:event_btn_guardar2ActionPerformed
 
     private void btn_cancelar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelar2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            Eliminar_registro();
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar:"+e.getMessage());
+        }
     }//GEN-LAST:event_btn_cancelar2ActionPerformed
 
 

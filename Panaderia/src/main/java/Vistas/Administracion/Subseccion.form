@@ -121,14 +121,6 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="cb_cantidad" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="271" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel6" min="-2" pref="157" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
-                                  </Group>
                                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                       <Component id="cb_distribuidor" max="32767" attributes="0"/>
                                       <Component id="tf_nombre" alignment="1" max="32767" attributes="0"/>
@@ -143,6 +135,13 @@
                                           </Group>
                                           <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
                                       </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="cb_cantidad" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel6" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
@@ -449,23 +448,11 @@
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel15" min="-2" pref="157" max="-2" attributes="0"/>
-                                          <Component id="jLabel14" min="-2" pref="157" max="-2" attributes="0"/>
-                                          <Component id="jLabel13" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
-                                          <Component id="jLabel12" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="tf_correoE" pref="204" max="32767" attributes="0"/>
-                                              <EmptySpace min="131" pref="131" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="jLabel11" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
-                                          <Component id="jLabel10" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="tf_salarioE" pref="145" max="32767" attributes="0"/>
                                               <EmptySpace min="190" pref="190" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jLabel9" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
                                           <Component id="tf_apellidoE" alignment="0" pref="335" max="32767" attributes="0"/>
-                                          <Component id="jLabel8" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
                                           <Component id="tf_nombreE" alignment="0" max="32767" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="tf_celularE" max="32767" attributes="0"/>
@@ -481,6 +468,20 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="tf_afiliacionE" max="32767" attributes="0"/>
                                               <EmptySpace min="131" pref="131" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="tf_correoE" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel15" min="-2" pref="157" max="-2" attributes="0"/>
+                                                  <Component id="jLabel14" min="-2" pref="157" max="-2" attributes="0"/>
+                                                  <Component id="jLabel13" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
+                                                  <Component id="jLabel12" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
+                                                  <Component id="jLabel11" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
+                                                  <Component id="jLabel10" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
+                                                  <Component id="jLabel9" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
+                                                  <Component id="jLabel8" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
@@ -794,6 +795,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="tf_afiliacionE">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="d9" green="d9" red="d9" type="rgb"/>
                         </Property>

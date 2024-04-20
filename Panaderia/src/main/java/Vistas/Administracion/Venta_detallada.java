@@ -70,7 +70,7 @@ public class Venta_detallada extends javax.swing.JFrame {
         jLabel1.setText("TOTAL:");
 
         jl_total.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jl_total.setForeground(new java.awt.Color(51, 51, 51));
+        jl_total.setForeground(new java.awt.Color(203, 136, 36));
         jl_total.setText("0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

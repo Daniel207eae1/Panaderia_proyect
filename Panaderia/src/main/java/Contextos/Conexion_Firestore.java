@@ -9,10 +9,8 @@ import Modelos.Empleado;
 import Modelos.Producto;
 import Modelos.Venta;
 import com.google.api.client.util.ArrayMap;
-import com.google.api.client.util.DateTime;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentChange;
 import com.google.cloud.firestore.DocumentReference;
@@ -31,7 +29,6 @@ import com.google.firebase.cloud.FirestoreClient;
 import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -272,6 +269,23 @@ public class Conexion_Firestore {
             throw new Exception("Cargar_venta_detallada: \n"+e.getMessage());
         }
         return total;
+    }
+    
+    public static void Eliminar_registro(String tipo, String identificador, String field) throws Exception{
+        try {
+            Query query = db.collection("Sucursales").document(Sesion.sucursal).collection(tipo).whereEqualTo(field,identificador);
+            ApiFuture<QuerySnapshot> q1snapshot = query.get();
+            
+            if(q1snapshot.get().isEmpty()){
+                throw new Exception(tipo+": "+tipo+" no encontrado.");
+            }
+            for(DocumentSnapshot d1 : q1snapshot.get().getDocuments()){
+                d1.getReference().delete();
+            }
+        } 
+        catch (Exception e) {
+            throw new Exception("Eliminar_registro: "+e.getMessage());
+        }
     }
     
     public static void Actualizar_inventario(Producto p) throws Exception{
