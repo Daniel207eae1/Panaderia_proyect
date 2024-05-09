@@ -91,6 +91,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         tb_facturacion.setText("FACTURACION");
         tb_facturacion.setAlignmentY(0.0F);
         tb_facturacion.setBorderPainted(false);
+        tb_facturacion.setName("Facturacion"); // NOI18N
         tb_facturacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tb_facturacionActionPerformed(evt);
@@ -104,6 +105,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         tb_administracion.setText("ADMINISTRACION");
         tb_administracion.setAlignmentY(0.0F);
         tb_administracion.setBorderPainted(false);
+        tb_administracion.setName("Administracion"); // NOI18N
 
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo Total.png"))); // NOI18N
 
@@ -154,6 +156,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         pf_contraseña.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         pf_contraseña.setForeground(new java.awt.Color(51, 51, 51));
         pf_contraseña.setBorder(null);
+        pf_contraseña.setName("Contraseña"); // NOI18N
         pf_contraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pf_contraseñaActionPerformed(evt);
@@ -165,6 +168,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         btn_entrar.setForeground(new java.awt.Color(0, 0, 0));
         btn_entrar.setText("Entrar");
         btn_entrar.setBorderPainted(false);
+        btn_entrar.setName("Entrar"); // NOI18N
         btn_entrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_entrarActionPerformed(evt);
@@ -236,16 +240,14 @@ public class Inicio_Sesion extends javax.swing.JFrame {
                     .addComponent(cb_sucursal, javax.swing.GroupLayout.Alignment.TRAILING, 0, 331, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(pf_contraseña)
-                            .addComponent(tf_usuario)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(pf_contraseña)
+                                .addComponent(tf_usuario)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE))
+                            .addComponent(btn_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );

@@ -13,13 +13,18 @@ public class Panaderia {
 
     public static void main(String[] args){
         try {
-            Inicio_Sesion inicio = new Inicio_Sesion();
-            inicio.setVisible(true);
+            Panaderia.showWindow();
             
             Conexion_Firestore.conectarFirebase();
         } 
         catch (Exception e) {
             System.out.println("Ocurrio un error en el main: "+e.getMessage());
         }
+    }
+    
+    public static Inicio_Sesion showWindow(){
+        Inicio_Sesion inicio = new Inicio_Sesion();
+        inicio.setVisible(true);
+        return inicio;
     }
 }
