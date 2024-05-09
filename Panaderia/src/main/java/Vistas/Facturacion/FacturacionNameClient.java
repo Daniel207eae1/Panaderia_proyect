@@ -45,6 +45,7 @@ public class FacturacionNameClient extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
+        setName("ClienteFrame"); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(244, 244, 244));
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));

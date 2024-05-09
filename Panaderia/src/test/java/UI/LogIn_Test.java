@@ -13,7 +13,6 @@ import org.assertj.swing.edt.FailOnThreadViolationRepaintManager;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
 import org.assertj.swing.fixture.JButtonFixture;
-import org.assertj.swing.fixture.JOptionPaneFixture;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -23,13 +22,13 @@ import org.junit.Test;
  *
  * @author elbot
  */
-public class TestApp {
+public class LogIn_Test {
     private FrameFixture window;
 
     /**
      * Constructor de clase
      */
-    public TestApp() {}
+    public LogIn_Test() {}
 
     /**
      * Fuerza a una prueba a fallar si el acceso a los componentes de la GUI
@@ -49,7 +48,7 @@ public class TestApp {
         try {
             Conexion_Firestore.conectarFirebase();
         } catch (Exception ex) {
-            Logger.getLogger(TestApp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LogIn_Test.class.getName()).log(Level.SEVERE, null, ex);
         }
         Inicio_Sesion frame = GuiActionRunner.execute(() -> new Inicio_Sesion());
         window = new FrameFixture(frame);
@@ -66,12 +65,46 @@ public class TestApp {
     }
     
     @Test
-    public void Iniciar_sesion(){
-        window.textBox("Usuario").enterText("Admin");
+    public void Mal_inicio_1() throws InterruptedException{
+        window.textBox("Usuario").enterText("cajero");
         window.textBox("Contraseña").enterText("password");
-        window.button("Facturacion").click();
-        window.button("Entrar").click();
-        //Verficiar que no deje entrar.
-        assertThat(window.optionPane().dialog().label().text().equals("Hola"));
+        window.button("Entrar").click().robot().waitForIdle();
+        assertThat(window.requireVisible());
+        Thread.sleep(2500);
+        window.optionPane().okButton().click();
+        
+        //Pulsar Administración
+        window.toggleButton("Administracion").click();
+        window.button("Entrar").click().robot().waitForIdle();
+        Thread.sleep(4500);
+        window.optionPane().okButton().click();
+        
+        //Cambiar de sucursal
+        window.comboBox().selectItem(1);
+        window.button("Entrar").click().robot().waitForIdle();
+        Thread.sleep(3500);
+        window.optionPane().okButton().click();
+        
+        assertThat(window.requireVisible());
+    }
+    
+    @Test
+    public void Iniciar_sesion_Facturacion(){
+        window.textBox("Usuario").enterText("Sherman10");
+        window.textBox("Contraseña").enterText("password");
+        window.toggleButton("Facturacion").click();
+        JButtonFixture buttonFixture = window.button("Entrar").click();
+        buttonFixture.robot().waitForIdle();
+        assertThat(window.requireNotVisible());
+    }
+    
+    @Test
+    public void Iniciar_sesion_Administrador(){
+        window.textBox("Usuario").enterText("Augusto20");
+        window.textBox("Contraseña").enterText("password");
+        window.toggleButton("Administracion").click();
+        JButtonFixture buttonFixture = window.button("Entrar").click();
+        buttonFixture.robot().waitForIdle();
+        assertThat(window.requireNotVisible());
     }
 }

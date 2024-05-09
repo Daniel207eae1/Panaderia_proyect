@@ -332,6 +332,7 @@ public class Facturacion extends javax.swing.JFrame {
         tb_inventario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tb_inventario.setForeground(new java.awt.Color(198, 87, 45));
         tb_inventario.setText("Inventario");
+        tb_inventario.setName("Inventario"); // NOI18N
         tb_inventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tb_inventarioActionPerformed(evt);
@@ -344,6 +345,7 @@ public class Facturacion extends javax.swing.JFrame {
         tb_facturacion.setForeground(new java.awt.Color(198, 87, 45));
         tb_facturacion.setSelected(true);
         tb_facturacion.setText("Facturación");
+        tb_facturacion.setName("Facturacion"); // NOI18N
         tb_facturacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tb_facturacionActionPerformed(evt);
@@ -378,6 +380,7 @@ public class Facturacion extends javax.swing.JFrame {
 
         ComboTipoProduct.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ComboTipoProduct.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pan", "Malteadas", "Otros" }));
+        ComboTipoProduct.setName("Tipo"); // NOI18N
         ComboTipoProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboTipoProductActionPerformed(evt);
@@ -390,6 +393,7 @@ public class Facturacion extends javax.swing.JFrame {
 
         ComboProduct.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ComboProduct.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboProduct.setName("Producto"); // NOI18N
         ComboProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboProductActionPerformed(evt);
@@ -406,11 +410,13 @@ public class Facturacion extends javax.swing.JFrame {
 
         ComboCant.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ComboCant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        ComboCant.setName("Cantidad"); // NOI18N
 
         btn_crear_factura.setBackground(new java.awt.Color(203, 136, 36));
         btn_crear_factura.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_crear_factura.setForeground(new java.awt.Color(255, 255, 255));
         btn_crear_factura.setText("Crear factura");
+        btn_crear_factura.setName("Crear"); // NOI18N
         btn_crear_factura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_crear_facturaActionPerformed(evt);
@@ -434,6 +440,7 @@ public class Facturacion extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tble_factura.setName("Tabla"); // NOI18N
         tble_factura.setShowGrid(true);
         jScrollPane1.setViewportView(tble_factura);
 
@@ -441,6 +448,7 @@ public class Facturacion extends javax.swing.JFrame {
         btn_agregar_producto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_agregar_producto.setForeground(new java.awt.Color(0, 0, 0));
         btn_agregar_producto.setText("Agregar producto");
+        btn_agregar_producto.setName("Agregar"); // NOI18N
         btn_agregar_producto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_agregar_productoActionPerformed(evt);
@@ -454,6 +462,7 @@ public class Facturacion extends javax.swing.JFrame {
         jl_total.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jl_total.setForeground(new java.awt.Color(51, 51, 51));
         jl_total.setText("0$");
+        jl_total.setName("Total"); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -529,6 +538,7 @@ public class Facturacion extends javax.swing.JFrame {
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/searchicon.png"))); // NOI18N
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel7.setName("Buscar"); // NOI18N
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel7MouseClicked(evt);
@@ -549,9 +559,11 @@ public class Facturacion extends javax.swing.JFrame {
 
         cb_categoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cb_categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pan", "Malteadas", "Otros" }));
+        cb_categoria.setName("Categoria"); // NOI18N
 
         cb_sucursal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cb_sucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bello", "Robledo" }));
+        cb_sucursal.setName("Sucursal"); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

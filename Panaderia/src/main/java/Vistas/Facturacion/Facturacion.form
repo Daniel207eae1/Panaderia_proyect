@@ -121,6 +121,7 @@
               <Color blue="2d" green="57" red="c6" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Inventario"/>
+            <Property name="name" type="java.lang.String" value="Inventario" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_inventarioActionPerformed"/>
@@ -142,6 +143,7 @@
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Facturaci&#xf3;n"/>
+            <Property name="name" type="java.lang.String" value="Facturacion" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_facturacionActionPerformed"/>
@@ -265,6 +267,7 @@
                     <StringItem index="2" value="Otros"/>
                   </StringArray>
                 </Property>
+                <Property name="name" type="java.lang.String" value="Tipo" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboTipoProductActionPerformed"/>
@@ -297,6 +300,7 @@
                     <StringItem index="3" value="Item 4"/>
                   </StringArray>
                 </Property>
+                <Property name="name" type="java.lang.String" value="Producto" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboProductActionPerformed"/>
@@ -339,6 +343,7 @@
                     <StringItem index="2" value="3"/>
                   </StringArray>
                 </Property>
+                <Property name="name" type="java.lang.String" value="Cantidad" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -356,6 +361,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Crear factura"/>
+                <Property name="name" type="java.lang.String" value="Crear" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_crear_facturaActionPerformed"/>
@@ -382,6 +388,7 @@
                         <Column editable="true" title="Subtotal" type="java.lang.Object"/>
                       </Table>
                     </Property>
+                    <Property name="name" type="java.lang.String" value="Tabla" noResource="true"/>
                     <Property name="showGrid" type="boolean" value="true"/>
                   </Properties>
                 </Component>
@@ -399,6 +406,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Agregar producto"/>
+                <Property name="name" type="java.lang.String" value="Agregar" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_agregar_productoActionPerformed"/>
@@ -424,6 +432,7 @@
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="0$"/>
+                <Property name="name" type="java.lang.String" value="Total" noResource="true"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -523,6 +532,7 @@
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Hand Cursor"/>
                 </Property>
+                <Property name="name" type="java.lang.String" value="Buscar" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel7MouseClicked"/>
@@ -566,6 +576,7 @@
                     <StringItem index="2" value="Otros"/>
                   </StringArray>
                 </Property>
+                <Property name="name" type="java.lang.String" value="Categoria" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -582,6 +593,7 @@
                     <StringItem index="1" value="Robledo"/>
                   </StringArray>
                 </Property>
+                <Property name="name" type="java.lang.String" value="Sucursal" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

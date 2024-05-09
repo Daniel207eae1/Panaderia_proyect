@@ -6,6 +6,7 @@ package Vistas.Administracion;
 
 import Vistas.Facturacion.Facturacion;
 import Contextos.Conexion_Firestore;
+import Contextos.Sesion;
 import Modificados.Colores;
 import Modificados.panel_degrade1;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
@@ -377,6 +378,11 @@ public class Inicio_Sesion extends javax.swing.JFrame {
             }
             
             boolean pass = Conexion_Firestore.LogIn(tipo_ingreso, tf_usuario.getText(), passwordHash, sucursal);
+            
+            System.out.println(Sesion.Nombre);
+            System.out.println(Sesion.Usuario);
+            System.out.println(Sesion.cedula);
+            System.out.println(Sesion.sucursal);
             
             if(pass&&tipo_ingreso.equals("facturacion")){
                 Facturacion f = new Facturacion();
