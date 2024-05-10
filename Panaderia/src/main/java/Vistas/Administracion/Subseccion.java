@@ -291,6 +291,7 @@ public class Subseccion extends javax.swing.JFrame {
         btn_cancelar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setName("Subseccion"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -317,7 +318,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_nombre.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_nombre.setForeground(new java.awt.Color(51, 51, 51));
         tf_nombre.setBorder(null);
-        tf_nombre.setName("Usuario"); // NOI18N
+        tf_nombre.setName("Nombre1"); // NOI18N
         tf_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_nombreActionPerformed(evt);
@@ -328,7 +329,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_precio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_precio.setForeground(new java.awt.Color(51, 51, 51));
         tf_precio.setBorder(null);
-        tf_precio.setName("Usuario"); // NOI18N
+        tf_precio.setName("Precio"); // NOI18N
         tf_precio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_precioActionPerformed(evt);
@@ -349,6 +350,7 @@ public class Subseccion extends javax.swing.JFrame {
         cb_cantidad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cb_cantidad.setForeground(new java.awt.Color(51, 51, 51));
         cb_cantidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }));
+        cb_cantidad.setName("Stock"); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
@@ -358,6 +360,7 @@ public class Subseccion extends javax.swing.JFrame {
         cb_distribuidor.setBackground(new java.awt.Color(217, 217, 217));
         cb_distribuidor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cb_distribuidor.setForeground(new java.awt.Color(51, 51, 51));
+        cb_distribuidor.setName("Distribuidor"); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -412,6 +415,7 @@ public class Subseccion extends javax.swing.JFrame {
         btn_guardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_guardar.setForeground(new java.awt.Color(244, 244, 244));
         btn_guardar.setText("Guardar");
+        btn_guardar.setName("Guardar"); // NOI18N
         btn_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_guardarActionPerformed(evt);
@@ -422,6 +426,7 @@ public class Subseccion extends javax.swing.JFrame {
         btn_cancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_cancelar.setForeground(new java.awt.Color(244, 244, 244));
         btn_cancelar.setText("Eliminar");
+        btn_cancelar.setName("Eliminar"); // NOI18N
         btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cancelarActionPerformed(evt);
@@ -475,7 +480,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_cedulaE.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_cedulaE.setForeground(new java.awt.Color(51, 51, 51));
         tf_cedulaE.setBorder(null);
-        tf_cedulaE.setName("Usuario"); // NOI18N
+        tf_cedulaE.setName("Cedula"); // NOI18N
         tf_cedulaE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_cedulaEActionPerformed(evt);
@@ -486,7 +491,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_nombreE.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_nombreE.setForeground(new java.awt.Color(51, 51, 51));
         tf_nombreE.setBorder(null);
-        tf_nombreE.setName("Usuario"); // NOI18N
+        tf_nombreE.setName("Nombre2"); // NOI18N
         tf_nombreE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_nombreEActionPerformed(evt);
@@ -502,7 +507,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_apellidoE.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_apellidoE.setForeground(new java.awt.Color(51, 51, 51));
         tf_apellidoE.setBorder(null);
-        tf_apellidoE.setName("Usuario"); // NOI18N
+        tf_apellidoE.setName("Apellidos"); // NOI18N
         tf_apellidoE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_apellidoEActionPerformed(evt);
@@ -518,7 +523,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_salarioE.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_salarioE.setForeground(new java.awt.Color(51, 51, 51));
         tf_salarioE.setBorder(null);
-        tf_salarioE.setName("Usuario"); // NOI18N
+        tf_salarioE.setName("Salario"); // NOI18N
         tf_salarioE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_salarioEActionPerformed(evt);
@@ -534,7 +539,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_celularE.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_celularE.setForeground(new java.awt.Color(51, 51, 51));
         tf_celularE.setBorder(null);
-        tf_celularE.setName("Usuario"); // NOI18N
+        tf_celularE.setName("Celular"); // NOI18N
         tf_celularE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_celularEActionPerformed(evt);
@@ -550,7 +555,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_correoE.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_correoE.setForeground(new java.awt.Color(51, 51, 51));
         tf_correoE.setBorder(null);
-        tf_correoE.setName("Usuario"); // NOI18N
+        tf_correoE.setName("Correo"); // NOI18N
         tf_correoE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_correoEActionPerformed(evt);
@@ -566,7 +571,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_cargoE.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_cargoE.setForeground(new java.awt.Color(51, 51, 51));
         tf_cargoE.setBorder(null);
-        tf_cargoE.setName("Usuario"); // NOI18N
+        tf_cargoE.setName("Cargo"); // NOI18N
         tf_cargoE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_cargoEActionPerformed(evt);
@@ -596,7 +601,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_afiliacionE.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_afiliacionE.setForeground(new java.awt.Color(51, 51, 51));
         tf_afiliacionE.setBorder(null);
-        tf_afiliacionE.setName("Usuario"); // NOI18N
+        tf_afiliacionE.setName("Afiliacion"); // NOI18N
         tf_afiliacionE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_afiliacionEActionPerformed(evt);
@@ -695,6 +700,7 @@ public class Subseccion extends javax.swing.JFrame {
         btn_guardar1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_guardar1.setForeground(new java.awt.Color(244, 244, 244));
         btn_guardar1.setText("Guardar");
+        btn_guardar1.setName("Guardar"); // NOI18N
         btn_guardar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_guardar1ActionPerformed(evt);
@@ -705,6 +711,7 @@ public class Subseccion extends javax.swing.JFrame {
         btn_cancelar1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_cancelar1.setForeground(new java.awt.Color(244, 244, 244));
         btn_cancelar1.setText("Eliminar");
+        btn_cancelar1.setName("Eliminar"); // NOI18N
         btn_cancelar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cancelar1ActionPerformed(evt);
@@ -758,7 +765,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_nombreD.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_nombreD.setForeground(new java.awt.Color(51, 51, 51));
         tf_nombreD.setBorder(null);
-        tf_nombreD.setName("Usuario"); // NOI18N
+        tf_nombreD.setName("Nombre3"); // NOI18N
         tf_nombreD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_nombreDActionPerformed(evt);
@@ -779,7 +786,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_direccionD.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_direccionD.setForeground(new java.awt.Color(51, 51, 51));
         tf_direccionD.setBorder(null);
-        tf_direccionD.setName("Usuario"); // NOI18N
+        tf_direccionD.setName("Direccion"); // NOI18N
         tf_direccionD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_direccionDActionPerformed(evt);
@@ -790,7 +797,7 @@ public class Subseccion extends javax.swing.JFrame {
         tf_numeroD.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tf_numeroD.setForeground(new java.awt.Color(51, 51, 51));
         tf_numeroD.setBorder(null);
-        tf_numeroD.setName("Usuario"); // NOI18N
+        tf_numeroD.setName("Numero"); // NOI18N
         tf_numeroD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_numeroDActionPerformed(evt);
@@ -842,6 +849,7 @@ public class Subseccion extends javax.swing.JFrame {
         btn_guardar2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_guardar2.setForeground(new java.awt.Color(244, 244, 244));
         btn_guardar2.setText("Guardar");
+        btn_guardar2.setName("Guardar"); // NOI18N
         btn_guardar2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_guardar2ActionPerformed(evt);
@@ -852,6 +860,7 @@ public class Subseccion extends javax.swing.JFrame {
         btn_cancelar2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_cancelar2.setForeground(new java.awt.Color(244, 244, 244));
         btn_cancelar2.setText("Eliminar");
+        btn_cancelar2.setName("Eliminar"); // NOI18N
         btn_cancelar2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cancelar2ActionPerformed(evt);

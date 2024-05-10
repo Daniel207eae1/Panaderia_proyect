@@ -50,6 +50,7 @@ public class Venta_detallada extends javax.swing.JFrame {
         jl_total = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setName("Venta"); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(244, 244, 244));
 
@@ -72,6 +73,7 @@ public class Venta_detallada extends javax.swing.JFrame {
         jl_total.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jl_total.setForeground(new java.awt.Color(203, 136, 36));
         jl_total.setText("0");
+        jl_total.setName("TotalVenta"); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

@@ -140,6 +140,7 @@
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Inventario"/>
             <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="Inventario" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_inventarioActionPerformed"/>
@@ -161,6 +162,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Empleados"/>
             <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="Empleados" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_empleadosActionPerformed"/>
@@ -182,6 +184,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Ventas"/>
             <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="Ventas" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_ventasActionPerformed"/>
@@ -203,6 +206,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Distribuidores"/>
             <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="Distribuidores" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tb_distribuidoresActionPerformed"/>
@@ -331,6 +335,7 @@
                   <Color blue="f4" green="f4" red="f4" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Insertar"/>
+                <Property name="name" type="java.lang.String" value="Insertar" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -354,6 +359,7 @@
                   <Color id="Hand Cursor"/>
                 </Property>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="name" type="java.lang.String" value="Panes" noResource="true"/>
                 <Property name="verticalTextPosition" type="int" value="1"/>
               </Properties>
               <Events>
@@ -380,6 +386,7 @@
                   <Color id="Hand Cursor"/>
                 </Property>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="name" type="java.lang.String" value="Malteadas" noResource="true"/>
                 <Property name="verticalTextPosition" type="int" value="1"/>
               </Properties>
               <Events>
@@ -406,6 +413,7 @@
                   <Color id="Hand Cursor"/>
                 </Property>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="name" type="java.lang.String" value="Otros" noResource="true"/>
                 <Property name="verticalTextPosition" type="int" value="1"/>
               </Properties>
               <Events>
@@ -426,6 +434,7 @@
                   <Color blue="f4" green="f4" red="f4" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Editar"/>
+                <Property name="name" type="java.lang.String" value="Editar" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
@@ -529,6 +538,7 @@
                   <Color blue="f4" green="f4" red="f4" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Insertar"/>
+                <Property name="name" type="java.lang.String" value="Insertar" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
@@ -546,6 +556,7 @@
                   <Color blue="f4" green="f4" red="f4" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Editar"/>
+                <Property name="name" type="java.lang.String" value="Editar" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
@@ -709,6 +720,7 @@
                   <Color blue="f4" green="f4" red="f4" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Insertar"/>
+                <Property name="name" type="java.lang.String" value="Insertar" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
@@ -726,6 +738,7 @@
                   <Color blue="f4" green="f4" red="f4" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Editar"/>
+                <Property name="name" type="java.lang.String" value="Editar" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>

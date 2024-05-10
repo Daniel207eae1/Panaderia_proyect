@@ -445,6 +445,7 @@ public class Principal extends javax.swing.JFrame {
         tb_inventario.setSelected(true);
         tb_inventario.setText("Inventario");
         tb_inventario.setBorderPainted(false);
+        tb_inventario.setName("Inventario"); // NOI18N
         tb_inventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tb_inventarioActionPerformed(evt);
@@ -457,6 +458,7 @@ public class Principal extends javax.swing.JFrame {
         tb_empleados.setForeground(new java.awt.Color(198, 87, 45));
         tb_empleados.setText("Empleados");
         tb_empleados.setBorderPainted(false);
+        tb_empleados.setName("Empleados"); // NOI18N
         tb_empleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tb_empleadosActionPerformed(evt);
@@ -469,6 +471,7 @@ public class Principal extends javax.swing.JFrame {
         tb_ventas.setForeground(new java.awt.Color(198, 87, 45));
         tb_ventas.setText("Ventas");
         tb_ventas.setBorderPainted(false);
+        tb_ventas.setName("Ventas"); // NOI18N
         tb_ventas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tb_ventasActionPerformed(evt);
@@ -481,6 +484,7 @@ public class Principal extends javax.swing.JFrame {
         tb_distribuidores.setForeground(new java.awt.Color(198, 87, 45));
         tb_distribuidores.setText("Distribuidores");
         tb_distribuidores.setBorderPainted(false);
+        tb_distribuidores.setName("Distribuidores"); // NOI18N
         tb_distribuidores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tb_distribuidoresActionPerformed(evt);
@@ -557,6 +561,7 @@ public class Principal extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(244, 244, 244));
         jButton1.setText("Insertar");
+        jButton1.setName("Insertar"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -571,6 +576,7 @@ public class Principal extends javax.swing.JFrame {
         jl_panes.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jl_panes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jl_panes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jl_panes.setName("Panes"); // NOI18N
         jl_panes.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         jl_panes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -592,6 +598,7 @@ public class Principal extends javax.swing.JFrame {
         jl_malteadas.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jl_malteadas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jl_malteadas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jl_malteadas.setName("Malteadas"); // NOI18N
         jl_malteadas.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         jl_malteadas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -613,6 +620,7 @@ public class Principal extends javax.swing.JFrame {
         jl_otros.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jl_otros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jl_otros.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jl_otros.setName("Otros"); // NOI18N
         jl_otros.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         jl_otros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -630,6 +638,7 @@ public class Principal extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(244, 244, 244));
         jButton4.setText("Editar");
+        jButton4.setName("Editar"); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -699,7 +708,6 @@ public class Principal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabla_empleados.setRowSelectionAllowed(true);
         tabla_empleados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabla_empleados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabla_empleados.setShowGrid(true);
@@ -709,6 +717,7 @@ public class Principal extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(244, 244, 244));
         jButton2.setText("Insertar");
+        jButton2.setName("Insertar"); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -719,6 +728,7 @@ public class Principal extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton5.setForeground(new java.awt.Color(244, 244, 244));
         jButton5.setText("Editar");
+        jButton5.setName("Editar"); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -826,6 +836,7 @@ public class Principal extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(244, 244, 244));
         jButton3.setText("Insertar");
+        jButton3.setName("Insertar"); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -836,6 +847,7 @@ public class Principal extends javax.swing.JFrame {
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton6.setForeground(new java.awt.Color(244, 244, 244));
         jButton6.setText("Editar");
+        jButton6.setName("Editar"); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
